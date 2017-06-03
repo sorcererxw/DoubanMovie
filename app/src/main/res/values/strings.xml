@@ -1,3 +1,12 @@
 <resources>
-    <string name="app_name">DoubanMovie</string>
+    <string name="app_name">Douban Movie</string>
+
+    <string name="in_theaters">院线热映</string>
+    <string name="coming_soon">即将上映</string>
+    <string name="top250">Top250</string>
+    <string name="us_box">北美票房榜</string>
+
+    <string name="action_more">更多</string>
+
+    <string name="no_rating">暂无评分</string>
 </resources>

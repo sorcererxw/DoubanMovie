@@ -68,4 +68,8 @@ dependencies {
     // material dialog (build Material-Design dialog easily)
     compile 'com.afollestad.material-dialogs:core:0.9.4.5'
     compile 'com.afollestad.material-dialogs:commons:0.9.4.5'
+    // slice (Card style)
+    compile 'com.github.mthli:Slice:v1.2'
+    // loading indicators
+    compile 'com.wang.avi:library:2.1.3'
 }
