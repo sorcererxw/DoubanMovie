@@ -9,6 +9,7 @@
 
     <!--152dp-->
     <ImageView
+        android:transitionName="@string/transition_name_movie_image"
         android:id="@+id/imageView_item_main_lists_item"
         android:layout_width="@dimen/list_movie_image_width"
         android:layout_height="@dimen/list_movie_image_height"

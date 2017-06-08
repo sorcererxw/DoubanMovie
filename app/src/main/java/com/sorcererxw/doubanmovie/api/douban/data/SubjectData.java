@@ -10,7 +10,7 @@ import java.util.List;
  * @date: 2017/6/3
  */
 
-public class SubjectData {
+public class SubjectData extends SimpleSubjectData {
 
     /**
      * rating : {"max":10,"average":7.4,"stars":"40","min":0}
@@ -42,26 +42,14 @@ public class SubjectData {
      * aka : ["9：末世决战","九","Number 9","机器人9号"]
      */
 
-    @SerializedName("rating")
-    private RatingData mRating;
     @SerializedName("reviews_count")
     private int mReviewsCount;
     @SerializedName("wish_count")
     private int mWishCount;
     @SerializedName("douban_site")
     private String mDoubanSite;
-    @SerializedName("year")
-    private String mYear;
-    @SerializedName("images")
-    private ImagesData mImages;
-    @SerializedName("alt")
-    private String mAlt;
-    @SerializedName("id")
-    private String mId;
     @SerializedName("mobile_url")
     private String mMobileUrl;
-    @SerializedName("title")
-    private String mTitle;
     @SerializedName("do_count")
     private Object mDoCount;
     @SerializedName("share_url")
@@ -76,12 +64,8 @@ public class SubjectData {
     private int mCollectCount;
     @SerializedName("current_season")
     private Object mCurrentSeason;
-    @SerializedName("original_title")
-    private String mOriginalTitle;
     @SerializedName("summary")
     private String mSummary;
-    @SerializedName("subtype")
-    private String mSubtype;
     @SerializedName("comments_count")
     private int mCommentsCount;
     @SerializedName("ratings_count")
@@ -91,19 +75,11 @@ public class SubjectData {
     @SerializedName("genres")
     private List<String> mGenres;
     @SerializedName("casts")
-    private List<CastsData> mCasts;
+    private List<SimpleCelebrityData> mCasts;
     @SerializedName("directors")
-    private List<DirectorsData> mDirectors;
+    private List<SimpleCelebrityData> mDirectors;
     @SerializedName("aka")
     private List<String> mAka;
-
-    public RatingData getRating() {
-        return mRating;
-    }
-
-    public void setRating(RatingData rating) {
-        mRating = rating;
-    }
 
     public int getReviewsCount() {
         return mReviewsCount;
@@ -129,37 +105,6 @@ public class SubjectData {
         mDoubanSite = doubanSite;
     }
 
-    public String getYear() {
-        return mYear;
-    }
-
-    public void setYear(String year) {
-        mYear = year;
-    }
-
-    public ImagesData getImages() {
-        return mImages;
-    }
-
-    public void setImages(ImagesData images) {
-        mImages = images;
-    }
-
-    public String getAlt() {
-        return mAlt;
-    }
-
-    public void setAlt(String alt) {
-        mAlt = alt;
-    }
-
-    public String getId() {
-        return mId;
-    }
-
-    public void setId(String id) {
-        mId = id;
-    }
 
     public String getMobileUrl() {
         return mMobileUrl;
@@ -167,14 +112,6 @@ public class SubjectData {
 
     public void setMobileUrl(String mobileUrl) {
         mMobileUrl = mobileUrl;
-    }
-
-    public String getTitle() {
-        return mTitle;
-    }
-
-    public void setTitle(String title) {
-        mTitle = title;
     }
 
     public Object getDoCount() {
@@ -233,13 +170,6 @@ public class SubjectData {
         mCurrentSeason = currentSeason;
     }
 
-    public String getOriginalTitle() {
-        return mOriginalTitle;
-    }
-
-    public void setOriginalTitle(String originalTitle) {
-        mOriginalTitle = originalTitle;
-    }
 
     public String getSummary() {
         return mSummary;
@@ -247,14 +177,6 @@ public class SubjectData {
 
     public void setSummary(String summary) {
         mSummary = summary;
-    }
-
-    public String getSubtype() {
-        return mSubtype;
-    }
-
-    public void setSubtype(String subtype) {
-        mSubtype = subtype;
     }
 
     public int getCommentsCount() {
@@ -289,19 +211,19 @@ public class SubjectData {
         mGenres = genres;
     }
 
-    public List<CastsData> getCasts() {
+    public List<SimpleCelebrityData> getCasts() {
         return mCasts;
     }
 
-    public void setCasts(List<CastsData> casts) {
+    public void setCasts(List<SimpleCelebrityData> casts) {
         mCasts = casts;
     }
 
-    public List<DirectorsData> getDirectors() {
+    public List<SimpleCelebrityData> getDirectors() {
         return mDirectors;
     }
 
-    public void setDirectors(List<DirectorsData> directors) {
+    public void setDirectors(List<SimpleCelebrityData> directors) {
         mDirectors = directors;
     }
 

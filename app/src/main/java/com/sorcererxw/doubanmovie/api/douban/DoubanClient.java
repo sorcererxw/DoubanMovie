@@ -2,9 +2,12 @@ package com.sorcererxw.doubanmovie.api.douban;
 
 import com.sorcererxw.doubanmovie.api.douban.data.ComingSoonData;
 import com.sorcererxw.doubanmovie.api.douban.data.InTheatersData;
+import com.sorcererxw.doubanmovie.api.douban.data.SearchData;
+import com.sorcererxw.doubanmovie.api.douban.data.SimpleSubjectData;
 import com.sorcererxw.doubanmovie.api.douban.data.Top250Data;
 import com.sorcererxw.doubanmovie.api.douban.data.UsBoxData;
 import com.sorcererxw.doubanmovie.data.MovieBean;
+import com.sorcererxw.doubanmovie.data.SimpleMovieBean;
 
 import java.util.List;
 
@@ -45,7 +48,7 @@ public class DoubanClient {
                 .create(DoubanService.class);
     }
 
-    public Observable<List<MovieBean>> usBox() {
+    public Observable<List<SimpleMovieBean>> usBox() {
         return mDoubanService.usBox()
                 .flatMap(new Function<UsBoxData, ObservableSource<UsBoxData.SubjectsBean>>() {
                     @Override
@@ -55,56 +58,82 @@ public class DoubanClient {
                         return Observable.fromIterable(usBoxData.getSubjects());
                     }
                 })
-                .map(MovieBean::from)
+                .map(UsBoxData.SubjectsBean::getSubject)
+                .map(SimpleMovieBean::from)
                 .toList()
                 .toObservable();
     }
 
-    public Observable<List<MovieBean>> inTheaters() {
+    public Observable<List<SimpleMovieBean>> inTheaters() {
         return mDoubanService.inTheaters()
                 .flatMap(
-                        new Function<InTheatersData, ObservableSource<InTheatersData.SubjectsBean>>() {
+                        new Function<InTheatersData, ObservableSource<SimpleSubjectData>>() {
                             @Override
-                            public ObservableSource<InTheatersData.SubjectsBean> apply(
+                            public ObservableSource<SimpleSubjectData> apply(
                                     @NonNull InTheatersData inTheatersData)
                                     throws Exception {
                                 return Observable.fromIterable(inTheatersData.getSubjects());
                             }
                         })
-                .map(MovieBean::from)
+                .map(SimpleMovieBean::from)
                 .toList()
                 .toObservable();
     }
 
-    public Observable<List<MovieBean>> top250(int start, int count) {
+    public Observable<List<SimpleMovieBean>> top250(int start, int count) {
         return mDoubanService.top250(start, count)
-                .flatMap(new Function<Top250Data, ObservableSource<Top250Data.SubjectsBean>>() {
+                .flatMap(new Function<Top250Data, ObservableSource<SimpleSubjectData>>() {
                     @Override
-                    public ObservableSource<Top250Data.SubjectsBean> apply(
+                    public ObservableSource<SimpleSubjectData> apply(
                             @NonNull Top250Data top250Data)
                             throws Exception {
                         return Observable.fromIterable(top250Data.getSubjects());
                     }
                 })
-                .map(MovieBean::from)
+                .map(SimpleMovieBean::from)
                 .sorted((o1, o2) -> o1.getRating() >= o2.getRating() ? -1 : 1)
                 .toList()
                 .toObservable();
     }
 
-    public Observable<List<MovieBean>> comingSoon(int start, int count) {
+    public Observable<List<SimpleMovieBean>> comingSoon(int start, int count) {
         return mDoubanService.comingSoon(start, count)
                 .flatMap(
-                        new Function<ComingSoonData, ObservableSource<ComingSoonData.SubjectsBean>>() {
+                        new Function<ComingSoonData, ObservableSource<SimpleSubjectData>>() {
                             @Override
-                            public ObservableSource<ComingSoonData.SubjectsBean> apply(
+                            public ObservableSource<SimpleSubjectData> apply(
                                     @NonNull ComingSoonData comingSoonData)
                                     throws Exception {
                                 return Observable.fromIterable(comingSoonData.getSubjects());
                             }
                         })
-                .map(MovieBean::from)
+                .map(SimpleMovieBean::from)
                 .toList()
                 .toObservable();
+    }
+
+    /**
+     * @param q     query string
+     * @param start start (default 0)
+     * @param count count (default 20)
+     * @return
+     */
+    public Observable<List<SimpleMovieBean>> search(String q, int start, int count) {
+        return mDoubanService.search(q, start, count)
+                .flatMap(new Function<SearchData, ObservableSource<SimpleSubjectData>>() {
+                    @Override
+                    public ObservableSource<SimpleSubjectData> apply(
+                            @NonNull SearchData searchData)
+                            throws Exception {
+                        return Observable.fromIterable(searchData.getSubjects());
+                    }
+                })
+                .map(SimpleMovieBean::from)
+                .toList()
+                .toObservable();
+    }
+
+    public Observable<MovieBean> movie(String id) {
+        return mDoubanService.subject(id).map(MovieBean::from);
     }
 }

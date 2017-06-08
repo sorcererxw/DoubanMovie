@@ -29,7 +29,7 @@ public class ComingSoonData {
     @SerializedName("title")
     private String mTitle;
     @SerializedName("subjects")
-    private List<SubjectsBean> mSubjects;
+    private List<SimpleSubjectData> mSubjects;
 
     public int getCount() {
         return mCount;
@@ -63,149 +63,11 @@ public class ComingSoonData {
         mTitle = title;
     }
 
-    public List<SubjectsBean> getSubjects() {
+    public List<SimpleSubjectData> getSubjects() {
         return mSubjects;
     }
 
-    public void setSubjects(List<SubjectsBean> subjects) {
+    public void setSubjects(List<SimpleSubjectData> subjects) {
         mSubjects = subjects;
-    }
-
-    public static class SubjectsBean {
-        /**
-         * rating : {"max":10,"average":0,"stars":"00","min":0}
-         * genres : ["动作","奇幻","冒险"]
-         * title : 新木乃伊
-         * casts : [{"alt":"https://movie.douban.com/celebrity/1054435/","avatars":{"small":"https://img1.doubanio.com/img/celebrity/small/567.jpg","large":"https://img1.doubanio.com/img/celebrity/large/567.jpg","medium":"https://img1.doubanio.com/img/celebrity/medium/567.jpg"},"name":"汤姆·克鲁斯","id":"1054435"},{"alt":"https://movie.douban.com/celebrity/1199057/","avatars":{"small":"https://img3.doubanio.com/img/celebrity/small/1400047780.22.jpg","large":"https://img3.doubanio.com/img/celebrity/large/1400047780.22.jpg","medium":"https://img3.doubanio.com/img/celebrity/medium/1400047780.22.jpg"},"name":"索菲亚·波多拉","id":"1199057"},{"alt":"https://movie.douban.com/celebrity/1016674/","avatars":{"small":"https://img3.doubanio.com/img/celebrity/small/17524.jpg","large":"https://img3.doubanio.com/img/celebrity/large/17524.jpg","medium":"https://img3.doubanio.com/img/celebrity/medium/17524.jpg"},"name":"罗素·克劳","id":"1016674"}]
-         * collect_count : 62
-         * original_title : The Mummy
-         * subtype : movie
-         * directors : [{"alt":"https://movie.douban.com/celebrity/1049959/","avatars":{"small":"https://img3.doubanio.com/img/celebrity/small/25843.jpg","large":"https://img3.doubanio.com/img/celebrity/large/25843.jpg","medium":"https://img3.doubanio.com/img/celebrity/medium/25843.jpg"},"name":"艾里克斯·库兹曼","id":"1049959"}]
-         * year : 2017
-         * images : {"small":"https://img1.doubanio.com/view/movie_poster_cover/ipst/public/p2459198108.jpg","large":"https://img1.doubanio.com/view/movie_poster_cover/lpst/public/p2459198108.jpg","medium":"https://img1.doubanio.com/view/movie_poster_cover/spst/public/p2459198108.jpg"}
-         * alt : https://movie.douban.com/subject/20451290/
-         * id : 20451290
-         */
-
-        @SerializedName("rating")
-        private RatingData mRating;
-        @SerializedName("title")
-        private String mTitle;
-        @SerializedName("collect_count")
-        private int mCollectCount;
-        @SerializedName("original_title")
-        private String mOriginalTitle;
-        @SerializedName("subtype")
-        private String mSubtype;
-        @SerializedName("year")
-        private String mYear;
-        @SerializedName("images")
-        private ImagesData mImages;
-        @SerializedName("alt")
-        private String mAlt;
-        @SerializedName("id")
-        private String mId;
-        @SerializedName("genres")
-        private List<String> mGenres;
-        @SerializedName("casts")
-        private List<CastsData> mCasts;
-        @SerializedName("directors")
-        private List<DirectorsData> mDirectors;
-
-        public RatingData getRating() {
-            return mRating;
-        }
-
-        public void setRating(RatingData rating) {
-            mRating = rating;
-        }
-
-        public String getTitle() {
-            return mTitle;
-        }
-
-        public void setTitle(String title) {
-            mTitle = title;
-        }
-
-        public int getCollectCount() {
-            return mCollectCount;
-        }
-
-        public void setCollectCount(int collectCount) {
-            mCollectCount = collectCount;
-        }
-
-        public String getOriginalTitle() {
-            return mOriginalTitle;
-        }
-
-        public void setOriginalTitle(String originalTitle) {
-            mOriginalTitle = originalTitle;
-        }
-
-        public String getSubtype() {
-            return mSubtype;
-        }
-
-        public void setSubtype(String subtype) {
-            mSubtype = subtype;
-        }
-
-        public String getYear() {
-            return mYear;
-        }
-
-        public void setYear(String year) {
-            mYear = year;
-        }
-
-        public ImagesData getImages() {
-            return mImages;
-        }
-
-        public void setImages(ImagesData images) {
-            mImages = images;
-        }
-
-        public String getAlt() {
-            return mAlt;
-        }
-
-        public void setAlt(String alt) {
-            mAlt = alt;
-        }
-
-        public String getId() {
-            return mId;
-        }
-
-        public void setId(String id) {
-            mId = id;
-        }
-
-        public List<String> getGenres() {
-            return mGenres;
-        }
-
-        public void setGenres(List<String> genres) {
-            mGenres = genres;
-        }
-
-        public List<CastsData> getCasts() {
-            return mCasts;
-        }
-
-        public void setCasts(List<CastsData> casts) {
-            mCasts = casts;
-        }
-
-        public List<DirectorsData> getDirectors() {
-            return mDirectors;
-        }
-
-        public void setDirectors(List<DirectorsData> directors) {
-            mDirectors = directors;
-        }
     }
 }

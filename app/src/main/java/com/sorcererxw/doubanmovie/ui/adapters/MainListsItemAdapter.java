@@ -9,8 +9,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.sorcererxw.doubanmovie.R;
-import com.sorcererxw.doubanmovie.data.MovieBean;
+import com.sorcererxw.doubanmovie.data.SimpleMovieBean;
 
 import java.util.List;
 
@@ -26,10 +27,10 @@ import butterknife.ButterKnife;
 public class MainListsItemAdapter extends RecyclerView.Adapter<MainListsItemAdapter.ViewHolder> {
     private Context mContext;
 
-    private List<MovieBean> mList;
+    private List<SimpleMovieBean> mList;
 
     public MainListsItemAdapter(Context context,
-                                List<MovieBean> list) {
+                                List<SimpleMovieBean> list) {
         mContext = context;
         mList = list;
     }
@@ -44,16 +45,16 @@ public class MainListsItemAdapter extends RecyclerView.Adapter<MainListsItemAdap
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        MovieBean movie = mList.get(position);
+        SimpleMovieBean movie = mList.get(position);
 
         Glide.with(mContext)
                 .load(movie.getImageUrl())
+                .transition(new DrawableTransitionOptions().crossFade(500))
                 .into(holder.mPicture);
 
         holder.mTitle.setText(movie.getTitle());
-//        holder.se
         holder.itemView.setOnClickListener(v -> {
-
+//            mContext.startActivity();
         });
     }
 

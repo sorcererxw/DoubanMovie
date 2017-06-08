@@ -29,7 +29,7 @@ public class Top250Data {
     @SerializedName("title")
     private String mTitle;
     @SerializedName("subjects")
-    private List<SubjectsBean> mSubjects;
+    private List<SimpleSubjectData> mSubjects;
 
     public int getCount() {
         return mCount;
@@ -63,149 +63,11 @@ public class Top250Data {
         mTitle = title;
     }
 
-    public List<SubjectsBean> getSubjects() {
+    public List<SimpleSubjectData> getSubjects() {
         return mSubjects;
     }
 
-    public void setSubjects(List<SubjectsBean> subjects) {
+    public void setSubjects(List<SimpleSubjectData> subjects) {
         mSubjects = subjects;
-    }
-
-    public static class SubjectsBean {
-        /**
-         * rating : {"max":10,"average":9.6,"stars":"50","min":0}
-         * genres : ["犯罪","剧情"]
-         * title : 肖申克的救赎
-         * casts : [{"alt":"https://movie.douban.com/celebrity/1054521/","avatars":{"small":"https://img3.doubanio.com/img/celebrity/small/17525.jpg","large":"https://img3.doubanio.com/img/celebrity/large/17525.jpg","medium":"https://img3.doubanio.com/img/celebrity/medium/17525.jpg"},"name":"蒂姆·罗宾斯","id":"1054521"},{"alt":"https://movie.douban.com/celebrity/1054534/","avatars":{"small":"https://img3.doubanio.com/img/celebrity/small/34642.jpg","large":"https://img3.doubanio.com/img/celebrity/large/34642.jpg","medium":"https://img3.doubanio.com/img/celebrity/medium/34642.jpg"},"name":"摩根·弗里曼","id":"1054534"},{"alt":"https://movie.douban.com/celebrity/1041179/","avatars":{"small":"https://img1.doubanio.com/img/celebrity/small/5837.jpg","large":"https://img1.doubanio.com/img/celebrity/large/5837.jpg","medium":"https://img1.doubanio.com/img/celebrity/medium/5837.jpg"},"name":"鲍勃·冈顿","id":"1041179"}]
-         * collect_count : 1068596
-         * original_title : The Shawshank Redemption
-         * subtype : movie
-         * directors : [{"alt":"https://movie.douban.com/celebrity/1047973/","avatars":{"small":"https://img3.doubanio.com/img/celebrity/small/230.jpg","large":"https://img3.doubanio.com/img/celebrity/large/230.jpg","medium":"https://img3.doubanio.com/img/celebrity/medium/230.jpg"},"name":"弗兰克·德拉邦特","id":"1047973"}]
-         * year : 1994
-         * images : {"small":"https://img3.doubanio.com/view/movie_poster_cover/ipst/public/p480747492.jpg","large":"https://img3.doubanio.com/view/movie_poster_cover/lpst/public/p480747492.jpg","medium":"https://img3.doubanio.com/view/movie_poster_cover/spst/public/p480747492.jpg"}
-         * alt : https://movie.douban.com/subject/1292052/
-         * id : 1292052
-         */
-
-        @SerializedName("rating")
-        private RatingData mRating;
-        @SerializedName("title")
-        private String mTitle;
-        @SerializedName("collect_count")
-        private int mCollectCount;
-        @SerializedName("original_title")
-        private String mOriginalTitle;
-        @SerializedName("subtype")
-        private String mSubtype;
-        @SerializedName("year")
-        private String mYear;
-        @SerializedName("images")
-        private ImagesData mImages;
-        @SerializedName("alt")
-        private String mAlt;
-        @SerializedName("id")
-        private String mId;
-        @SerializedName("genres")
-        private List<String> mGenres;
-        @SerializedName("casts")
-        private List<CastsData> mCasts;
-        @SerializedName("directors")
-        private List<DirectorsData> mDirectors;
-
-        public RatingData getRating() {
-            return mRating;
-        }
-
-        public void setRating(RatingData rating) {
-            mRating = rating;
-        }
-
-        public String getTitle() {
-            return mTitle;
-        }
-
-        public void setTitle(String title) {
-            mTitle = title;
-        }
-
-        public int getCollectCount() {
-            return mCollectCount;
-        }
-
-        public void setCollectCount(int collectCount) {
-            mCollectCount = collectCount;
-        }
-
-        public String getOriginalTitle() {
-            return mOriginalTitle;
-        }
-
-        public void setOriginalTitle(String originalTitle) {
-            mOriginalTitle = originalTitle;
-        }
-
-        public String getSubtype() {
-            return mSubtype;
-        }
-
-        public void setSubtype(String subtype) {
-            mSubtype = subtype;
-        }
-
-        public String getYear() {
-            return mYear;
-        }
-
-        public void setYear(String year) {
-            mYear = year;
-        }
-
-        public ImagesData getImages() {
-            return mImages;
-        }
-
-        public void setImages(ImagesData images) {
-            mImages = images;
-        }
-
-        public String getAlt() {
-            return mAlt;
-        }
-
-        public void setAlt(String alt) {
-            mAlt = alt;
-        }
-
-        public String getId() {
-            return mId;
-        }
-
-        public void setId(String id) {
-            mId = id;
-        }
-
-        public List<String> getGenres() {
-            return mGenres;
-        }
-
-        public void setGenres(List<String> genres) {
-            mGenres = genres;
-        }
-
-        public List<CastsData> getCasts() {
-            return mCasts;
-        }
-
-        public void setCasts(List<CastsData> casts) {
-            mCasts = casts;
-        }
-
-        public List<DirectorsData> getDirectors() {
-            return mDirectors;
-        }
-
-        public void setDirectors(List<DirectorsData> directors) {
-            mDirectors = directors;
-        }
     }
 }

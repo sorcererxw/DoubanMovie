@@ -29,7 +29,7 @@ public class SearchData {
     @SerializedName("title")
     private String mTitle;
     @SerializedName("subjects")
-    private List<SubjectsBean> mSubjects;
+    private List<SimpleSubjectData> mSubjects;
 
     public int getCount() {
         return mCount;
@@ -63,149 +63,11 @@ public class SearchData {
         mTitle = title;
     }
 
-    public List<SubjectsBean> getSubjects() {
+    public List<SimpleSubjectData> getSubjects() {
         return mSubjects;
     }
 
-    public void setSubjects(List<SubjectsBean> subjects) {
+    public void setSubjects(List<SimpleSubjectData> subjects) {
         mSubjects = subjects;
-    }
-
-    public static class SubjectsBean {
-        /**
-         * rating : {"max":10,"average":7.3,"stars":"40","min":0}
-         * genres : ["剧情","喜剧","家庭"]
-         * title : 手机
-         * casts : [{"alt":"https://movie.douban.com/celebrity/1015115/","avatars":{"small":"https://img1.doubanio.com/img/celebrity/small/1472014969.9.jpg","large":"https://img1.doubanio.com/img/celebrity/large/1472014969.9.jpg","medium":"https://img1.doubanio.com/img/celebrity/medium/1472014969.9.jpg"},"name":"张国立","id":"1015115"},{"alt":"https://movie.douban.com/celebrity/1000905/","avatars":{"small":"https://img3.doubanio.com/img/celebrity/small/46.jpg","large":"https://img3.doubanio.com/img/celebrity/large/46.jpg","medium":"https://img3.doubanio.com/img/celebrity/medium/46.jpg"},"name":"葛优","id":"1000905"},{"alt":"https://movie.douban.com/celebrity/1050059/","avatars":{"small":"https://img3.doubanio.com/img/celebrity/small/1691.jpg","large":"https://img3.doubanio.com/img/celebrity/large/1691.jpg","medium":"https://img3.doubanio.com/img/celebrity/medium/1691.jpg"},"name":"范冰冰","id":"1050059"}]
-         * collect_count : 143987
-         * original_title : 手机
-         * subtype : movie
-         * directors : [{"alt":"https://movie.douban.com/celebrity/1274255/","avatars":{"small":"https://img3.doubanio.com/img/celebrity/small/43634.jpg","large":"https://img3.doubanio.com/img/celebrity/large/43634.jpg","medium":"https://img3.doubanio.com/img/celebrity/medium/43634.jpg"},"name":"冯小刚","id":"1274255"}]
-         * year : 2003
-         * images : {"small":"https://img1.doubanio.com/view/movie_poster_cover/ipst/public/p1930481609.jpg","large":"https://img1.doubanio.com/view/movie_poster_cover/lpst/public/p1930481609.jpg","medium":"https://img1.doubanio.com/view/movie_poster_cover/spst/public/p1930481609.jpg"}
-         * alt : https://movie.douban.com/subject/1308747/
-         * id : 1308747
-         */
-
-        @SerializedName("rating")
-        private RatingData mRating;
-        @SerializedName("title")
-        private String mTitle;
-        @SerializedName("collect_count")
-        private int mCollectCount;
-        @SerializedName("original_title")
-        private String mOriginalTitle;
-        @SerializedName("subtype")
-        private String mSubtype;
-        @SerializedName("year")
-        private String mYear;
-        @SerializedName("images")
-        private ImagesData mImages;
-        @SerializedName("alt")
-        private String mAlt;
-        @SerializedName("id")
-        private String mId;
-        @SerializedName("genres")
-        private List<String> mGenres;
-        @SerializedName("casts")
-        private List<CastsData> mCasts;
-        @SerializedName("directors")
-        private List<DirectorsData> mDirectors;
-
-        public RatingData getRating() {
-            return mRating;
-        }
-
-        public void setRating(RatingData rating) {
-            mRating = rating;
-        }
-
-        public String getTitle() {
-            return mTitle;
-        }
-
-        public void setTitle(String title) {
-            mTitle = title;
-        }
-
-        public int getCollectCount() {
-            return mCollectCount;
-        }
-
-        public void setCollectCount(int collectCount) {
-            mCollectCount = collectCount;
-        }
-
-        public String getOriginalTitle() {
-            return mOriginalTitle;
-        }
-
-        public void setOriginalTitle(String originalTitle) {
-            mOriginalTitle = originalTitle;
-        }
-
-        public String getSubtype() {
-            return mSubtype;
-        }
-
-        public void setSubtype(String subtype) {
-            mSubtype = subtype;
-        }
-
-        public String getYear() {
-            return mYear;
-        }
-
-        public void setYear(String year) {
-            mYear = year;
-        }
-
-        public ImagesData getImages() {
-            return mImages;
-        }
-
-        public void setImages(ImagesData images) {
-            mImages = images;
-        }
-
-        public String getAlt() {
-            return mAlt;
-        }
-
-        public void setAlt(String alt) {
-            mAlt = alt;
-        }
-
-        public String getId() {
-            return mId;
-        }
-
-        public void setId(String id) {
-            mId = id;
-        }
-
-        public List<String> getGenres() {
-            return mGenres;
-        }
-
-        public void setGenres(List<String> genres) {
-            mGenres = genres;
-        }
-
-        public List<CastsData> getCasts() {
-            return mCasts;
-        }
-
-        public void setCasts(List<CastsData> casts) {
-            mCasts = casts;
-        }
-
-        public List<DirectorsData> getDirectors() {
-            return mDirectors;
-        }
-
-        public void setDirectors(List<DirectorsData> directors) {
-            mDirectors = directors;
-        }
     }
 }

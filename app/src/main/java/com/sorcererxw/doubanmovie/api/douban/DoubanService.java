@@ -34,7 +34,15 @@ interface DoubanService {
     Observable<Top250Data> top250(@Query("start") int start, @Query("count") int count);
 
     @GET("/v2/movie/search")
-    Observable<SearchData> search(@Query("q") String q);
+    Observable<SearchData> search(@Query("q") String q,
+                                  @Query("start") int start,
+                                  @Query("count") int count);
+
+    @GET("/v2/movie/search")
+    Observable<SearchData> search(@Query("q") String q,
+                                  @Query("tag") String tag,
+                                  @Query("start") int start,
+                                  @Query("count") int count);
 
     @GET("/v2/movie/celebrity/{id}")
     Observable<CelebrityData> celebrity(@Path("id") String id);

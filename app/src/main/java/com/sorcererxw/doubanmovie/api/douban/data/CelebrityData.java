@@ -144,15 +144,15 @@ public class CelebrityData {
          */
 
         @SerializedName("subject")
-        private SubjectBean mSubject;
+        private SimpleSubjectData mSubject;
         @SerializedName("roles")
         private List<String> mRoles;
 
-        public SubjectBean getSubject() {
+        public SimpleSubjectData getSubject() {
             return mSubject;
         }
 
-        public void setSubject(SubjectBean subject) {
+        public void setSubject(SimpleSubjectData subject) {
             mSubject = subject;
         }
 
@@ -162,144 +162,6 @@ public class CelebrityData {
 
         public void setRoles(List<String> roles) {
             mRoles = roles;
-        }
-
-        public static class SubjectBean {
-            /**
-             * rating : {"max":10,"average":9.3,"stars":"50","min":0}
-             * genres : ["喜剧","短片","歌舞"]
-             * title : SMAPxSMAP
-             * casts : [{"alt":null,"avatars":null,"name":"中居正广","id":null},{"alt":null,"avatars":null,"name":"木村拓哉","id":null},{"alt":null,"avatars":null,"name":"稻垣吾郎","id":null}]
-             * collect_count : 2253
-             * original_title : SMAPxSMAP
-             * subtype : tv
-             * directors : []
-             * year : 1996
-             * images : {"small":"https://img3.doubanio.com/spic/s1634671.jpg","large":"https://img3.doubanio.com/lpic/s1634671.jpg","medium":"https://img3.doubanio.com/mpic/s1634671.jpg"}
-             * alt : https://movie.douban.com/subject/1763308/
-             * id : 1763308
-             */
-
-            @SerializedName("rating")
-            private RatingData mRating;
-            @SerializedName("title")
-            private String mTitle;
-            @SerializedName("collect_count")
-            private int mCollectCount;
-            @SerializedName("original_title")
-            private String mOriginalTitle;
-            @SerializedName("subtype")
-            private String mSubtype;
-            @SerializedName("year")
-            private String mYear;
-            @SerializedName("images")
-            private ImagesData mImages;
-            @SerializedName("alt")
-            private String mAlt;
-            @SerializedName("id")
-            private String mId;
-            @SerializedName("genres")
-            private List<String> mGenres;
-            @SerializedName("casts")
-            private List<CastsData> mCasts;
-            @SerializedName("directors")
-            private List<DirectorsData> mDirectors;
-
-            public RatingData getRating() {
-                return mRating;
-            }
-
-            public void setRating(RatingData rating) {
-                mRating = rating;
-            }
-
-            public String getTitle() {
-                return mTitle;
-            }
-
-            public void setTitle(String title) {
-                mTitle = title;
-            }
-
-            public int getCollectCount() {
-                return mCollectCount;
-            }
-
-            public void setCollectCount(int collectCount) {
-                mCollectCount = collectCount;
-            }
-
-            public String getOriginalTitle() {
-                return mOriginalTitle;
-            }
-
-            public void setOriginalTitle(String originalTitle) {
-                mOriginalTitle = originalTitle;
-            }
-
-            public String getSubtype() {
-                return mSubtype;
-            }
-
-            public void setSubtype(String subtype) {
-                mSubtype = subtype;
-            }
-
-            public String getYear() {
-                return mYear;
-            }
-
-            public void setYear(String year) {
-                mYear = year;
-            }
-
-            public ImagesData getImages() {
-                return mImages;
-            }
-
-            public void setImages(ImagesData images) {
-                mImages = images;
-            }
-
-            public String getAlt() {
-                return mAlt;
-            }
-
-            public void setAlt(String alt) {
-                mAlt = alt;
-            }
-
-            public String getId() {
-                return mId;
-            }
-
-            public void setId(String id) {
-                mId = id;
-            }
-
-            public List<String> getGenres() {
-                return mGenres;
-            }
-
-            public void setGenres(List<String> genres) {
-                mGenres = genres;
-            }
-
-            public List<CastsData> getCasts() {
-                return mCasts;
-            }
-
-            public void setCasts(List<CastsData> casts) {
-                mCasts = casts;
-            }
-
-            public List<DirectorsData> getDirectors() {
-                return mDirectors;
-            }
-
-            public void setDirectors(List<DirectorsData> directors) {
-                mDirectors = directors;
-            }
         }
     }
 }

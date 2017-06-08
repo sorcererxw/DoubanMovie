@@ -5,17 +5,10 @@ import com.google.gson.annotations.SerializedName;
 /**
  * @description:
  * @author: Sorcerer
- * @date: 2017/6/6
+ * @date: 2017/6/8
  */
 
-public class CastsData {
-    /**
-     * alt : https://movie.douban.com/celebrity/1054435/
-     * avatars : {"small":"https://img1.doubanio.com/img/celebrity/small/567.jpg","large":"https://img1.doubanio.com/img/celebrity/large/567.jpg","medium":"https://img1.doubanio.com/img/celebrity/medium/567.jpg"}
-     * name : 汤姆·克鲁斯
-     * id : 1054435
-     */
-
+public class SimpleCelebrityData {
     @SerializedName("alt")
     private String mAlt;
     @SerializedName("avatars")

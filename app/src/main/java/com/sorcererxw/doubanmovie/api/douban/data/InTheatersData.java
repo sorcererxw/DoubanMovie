@@ -29,7 +29,7 @@ public class InTheatersData {
     @SerializedName("title")
     private String mTitle;
     @SerializedName("subjects")
-    private List<SubjectsBean> mSubjects;
+    private List<SimpleSubjectData> mSubjects;
 
     public int getCount() {
         return mCount;
@@ -63,149 +63,11 @@ public class InTheatersData {
         mTitle = title;
     }
 
-    public List<SubjectsBean> getSubjects() {
+    public List<SimpleSubjectData> getSubjects() {
         return mSubjects;
     }
 
-    public void setSubjects(List<SubjectsBean> subjects) {
+    public void setSubjects(List<SimpleSubjectData> subjects) {
         mSubjects = subjects;
-    }
-
-    public static class SubjectsBean {
-        /**
-         * rating : {"max":10,"average":7.7,"stars":"40","min":0}
-         * genres : ["动作","奇幻","冒险"]
-         * title : 神奇女侠
-         * casts : [{"alt":"https://movie.douban.com/celebrity/1044996/","avatars":{"small":"https://img3.doubanio.com/img/celebrity/small/8710.jpg","large":"https://img3.doubanio.com/img/celebrity/large/8710.jpg","medium":"https://img3.doubanio.com/img/celebrity/medium/8710.jpg"},"name":"盖尔·加朵","id":"1044996"},{"alt":"https://movie.douban.com/celebrity/1053621/","avatars":{"small":"https://img1.doubanio.com/img/celebrity/small/32637.jpg","large":"https://img1.doubanio.com/img/celebrity/large/32637.jpg","medium":"https://img1.doubanio.com/img/celebrity/medium/32637.jpg"},"name":"克里斯·派恩","id":"1053621"},{"alt":"https://movie.douban.com/celebrity/1002676/","avatars":{"small":"https://img1.doubanio.com/img/celebrity/small/51737.jpg","large":"https://img1.doubanio.com/img/celebrity/large/51737.jpg","medium":"https://img1.doubanio.com/img/celebrity/medium/51737.jpg"},"name":"罗宾·怀特","id":"1002676"}]
-         * collect_count : 25843
-         * original_title : Wonder Woman
-         * subtype : movie
-         * directors : [{"alt":"https://movie.douban.com/celebrity/1023041/","avatars":{"small":"https://img1.doubanio.com/img/celebrity/small/55167.jpg","large":"https://img1.doubanio.com/img/celebrity/large/55167.jpg","medium":"https://img1.doubanio.com/img/celebrity/medium/55167.jpg"},"name":"派蒂·杰金斯","id":"1023041"}]
-         * year : 2017
-         * images : {"small":"https://img3.doubanio.com/view/movie_poster_cover/ipst/public/p2460006593.jpg","large":"https://img3.doubanio.com/view/movie_poster_cover/lpst/public/p2460006593.jpg","medium":"https://img3.doubanio.com/view/movie_poster_cover/spst/public/p2460006593.jpg"}
-         * alt : https://movie.douban.com/subject/1578714/
-         * id : 1578714
-         */
-
-        @SerializedName("rating")
-        private RatingData mRating;
-        @SerializedName("title")
-        private String mTitle;
-        @SerializedName("collect_count")
-        private int mCollectCount;
-        @SerializedName("original_title")
-        private String mOriginalTitle;
-        @SerializedName("subtype")
-        private String mSubtype;
-        @SerializedName("year")
-        private String mYear;
-        @SerializedName("images")
-        private ImagesData mImages;
-        @SerializedName("alt")
-        private String mAlt;
-        @SerializedName("id")
-        private String mId;
-        @SerializedName("genres")
-        private List<String> mGenres;
-        @SerializedName("casts")
-        private List<CastsData> mCasts;
-        @SerializedName("directors")
-        private List<DirectorsData> mDirectors;
-
-        public RatingData getRating() {
-            return mRating;
-        }
-
-        public void setRating(RatingData rating) {
-            mRating = rating;
-        }
-
-        public String getTitle() {
-            return mTitle;
-        }
-
-        public void setTitle(String title) {
-            mTitle = title;
-        }
-
-        public int getCollectCount() {
-            return mCollectCount;
-        }
-
-        public void setCollectCount(int collectCount) {
-            mCollectCount = collectCount;
-        }
-
-        public String getOriginalTitle() {
-            return mOriginalTitle;
-        }
-
-        public void setOriginalTitle(String originalTitle) {
-            mOriginalTitle = originalTitle;
-        }
-
-        public String getSubtype() {
-            return mSubtype;
-        }
-
-        public void setSubtype(String subtype) {
-            mSubtype = subtype;
-        }
-
-        public String getYear() {
-            return mYear;
-        }
-
-        public void setYear(String year) {
-            mYear = year;
-        }
-
-        public ImagesData getImages() {
-            return mImages;
-        }
-
-        public void setImages(ImagesData images) {
-            mImages = images;
-        }
-
-        public String getAlt() {
-            return mAlt;
-        }
-
-        public void setAlt(String alt) {
-            mAlt = alt;
-        }
-
-        public String getId() {
-            return mId;
-        }
-
-        public void setId(String id) {
-            mId = id;
-        }
-
-        public List<String> getGenres() {
-            return mGenres;
-        }
-
-        public void setGenres(List<String> genres) {
-            mGenres = genres;
-        }
-
-        public List<CastsData> getCasts() {
-            return mCasts;
-        }
-
-        public void setCasts(List<CastsData> casts) {
-            mCasts = casts;
-        }
-
-        public List<DirectorsData> getDirectors() {
-            return mDirectors;
-        }
-
-        public void setDirectors(List<DirectorsData> directors) {
-            mDirectors = directors;
-        }
     }
 }

@@ -64,7 +64,7 @@ public class UsBoxData {
         @SerializedName("rank")
         private int mRank;
         @SerializedName("subject")
-        private SubjectBean mSubject;
+        private SimpleSubjectData mSubject;
 
         public int getBox() {
             return mBox;
@@ -90,150 +90,12 @@ public class UsBoxData {
             mRank = rank;
         }
 
-        public SubjectBean getSubject() {
+        public SimpleSubjectData getSubject() {
             return mSubject;
         }
 
-        public void setSubject(SubjectBean subject) {
+        public void setSubject(SimpleSubjectData subject) {
             mSubject = subject;
-        }
-
-        public static class SubjectBean {
-            /**
-             * rating : {"max":10,"average":7.4,"stars":"40","min":0}
-             * genres : ["动作","奇幻","冒险"]
-             * title : 加勒比海盗5：死无对证
-             * casts : [{"alt":"https://movie.douban.com/celebrity/1054456/","avatars":{"small":"https://img3.doubanio.com/img/celebrity/small/562.jpg","large":"https://img3.doubanio.com/img/celebrity/large/562.jpg","medium":"https://img3.doubanio.com/img/celebrity/medium/562.jpg"},"name":"约翰尼·德普","id":"1054456"},{"alt":"https://movie.douban.com/celebrity/1054414/","avatars":{"small":"https://img1.doubanio.com/img/celebrity/small/587.jpg","large":"https://img1.doubanio.com/img/celebrity/large/587.jpg","medium":"https://img1.doubanio.com/img/celebrity/medium/587.jpg"},"name":"哈维尔·巴登","id":"1054414"},{"alt":"https://movie.douban.com/celebrity/1010543/","avatars":{"small":"https://img3.doubanio.com/img/celebrity/small/1243.jpg","large":"https://img3.doubanio.com/img/celebrity/large/1243.jpg","medium":"https://img3.doubanio.com/img/celebrity/medium/1243.jpg"},"name":"杰弗里·拉什","id":"1010543"}]
-             * collect_count : 94400
-             * original_title : Pirates of the Caribbean: Dead Men Tell No Tales
-             * subtype : movie
-             * directors : [{"alt":"https://movie.douban.com/celebrity/1019391/","avatars":{"small":"https://img3.doubanio.com/img/celebrity/small/58032.jpg","large":"https://img3.doubanio.com/img/celebrity/large/58032.jpg","medium":"https://img3.doubanio.com/img/celebrity/medium/58032.jpg"},"name":"艾斯彭·山德伯格","id":"1019391"},{"alt":"https://movie.douban.com/celebrity/1216851/","avatars":{"small":"https://img3.doubanio.com/img/celebrity/small/58031.jpg","large":"https://img3.doubanio.com/img/celebrity/large/58031.jpg","medium":"https://img3.doubanio.com/img/celebrity/medium/58031.jpg"},"name":"乔阿吉姆·罗恩尼","id":"1216851"}]
-             * year : 2017
-             * images : {"small":"https://img3.doubanio.com/view/movie_poster_cover/ipst/public/p2459723975.jpg","large":"https://img3.doubanio.com/view/movie_poster_cover/lpst/public/p2459723975.jpg","medium":"https://img3.doubanio.com/view/movie_poster_cover/spst/public/p2459723975.jpg"}
-             * alt : https://movie.douban.com/subject/6311303/
-             * id : 6311303
-             */
-
-            @SerializedName("rating")
-            private RatingData mRating;
-            @SerializedName("title")
-            private String mTitle;
-            @SerializedName("collect_count")
-            private int mCollectCount;
-            @SerializedName("original_title")
-            private String mOriginalTitle;
-            @SerializedName("subtype")
-            private String mSubtype;
-            @SerializedName("year")
-            private String mYear;
-            @SerializedName("images")
-            private ImagesData mImages;
-            @SerializedName("alt")
-            private String mAlt;
-            @SerializedName("id")
-            private String mId;
-            @SerializedName("genres")
-            private List<String> mGenres;
-            @SerializedName("casts")
-            private List<CastsData> mCasts;
-            @SerializedName("directors")
-            private List<DirectorsData> mDirectors;
-
-            public RatingData getRating() {
-                return mRating;
-            }
-
-            public void setRating(RatingData rating) {
-                mRating = rating;
-            }
-
-            public String getTitle() {
-                return mTitle;
-            }
-
-            public void setTitle(String title) {
-                mTitle = title;
-            }
-
-            public int getCollectCount() {
-                return mCollectCount;
-            }
-
-            public void setCollectCount(int collectCount) {
-                mCollectCount = collectCount;
-            }
-
-            public String getOriginalTitle() {
-                return mOriginalTitle;
-            }
-
-            public void setOriginalTitle(String originalTitle) {
-                mOriginalTitle = originalTitle;
-            }
-
-            public String getSubtype() {
-                return mSubtype;
-            }
-
-            public void setSubtype(String subtype) {
-                mSubtype = subtype;
-            }
-
-            public String getYear() {
-                return mYear;
-            }
-
-            public void setYear(String year) {
-                mYear = year;
-            }
-
-            public ImagesData getImages() {
-                return mImages;
-            }
-
-            public void setImages(ImagesData images) {
-                mImages = images;
-            }
-
-            public String getAlt() {
-                return mAlt;
-            }
-
-            public void setAlt(String alt) {
-                mAlt = alt;
-            }
-
-            public String getId() {
-                return mId;
-            }
-
-            public void setId(String id) {
-                mId = id;
-            }
-
-            public List<String> getGenres() {
-                return mGenres;
-            }
-
-            public void setGenres(List<String> genres) {
-                mGenres = genres;
-            }
-
-            public List<CastsData> getCasts() {
-                return mCasts;
-            }
-
-            public void setCasts(List<CastsData> casts) {
-                mCasts = casts;
-            }
-
-            public List<DirectorsData> getDirectors() {
-                return mDirectors;
-            }
-
-            public void setDirectors(List<DirectorsData> directors) {
-                mDirectors = directors;
-            }
         }
     }
 }

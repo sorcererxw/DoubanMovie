@@ -1,5 +1,6 @@
 package com.sorcererxw.doubanmovie.ui.views;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
 import android.support.annotation.AttrRes;
@@ -16,7 +17,7 @@ import android.widget.TextView;
 
 import com.mikepenz.materialize.util.UIUtils;
 import com.sorcererxw.doubanmovie.R;
-import com.sorcererxw.doubanmovie.data.MovieBean;
+import com.sorcererxw.doubanmovie.data.SimpleMovieBean;
 import com.sorcererxw.doubanmovie.ui.adapters.MovieHorizontalListAdapter;
 
 import java.util.List;
@@ -79,7 +80,7 @@ public class MovieHorizontalListView extends FrameLayout {
     public void init(String title,
                      String action,
                      OnActionClickListener onActionClickListener,
-                     Observable<List<MovieBean>> source) {
+                     Observable<List<SimpleMovieBean>> source) {
         removeAllViews();
         View view = View.inflate(getContext(), R.layout.layout_movie_horizontal_list, null);
         addView(view);
@@ -93,7 +94,7 @@ public class MovieHorizontalListView extends FrameLayout {
             }
         });
 
-        mAdapter = new MovieHorizontalListAdapter(getContext());
+        mAdapter = new MovieHorizontalListAdapter((Activity) view.getContext());
         mRecyclerView.setAdapter(mAdapter);
         LinearLayoutManager layoutManager =
                 new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -125,7 +126,7 @@ public class MovieHorizontalListView extends FrameLayout {
                 }, Timber::e);
     }
 
-    private void initList(List<MovieBean> movieBeenList) {
+    private void initList(List<SimpleMovieBean> movieBeenList) {
         mAdapter.setData(movieBeenList);
         mAdapter.notifyDataSetChanged();
     }

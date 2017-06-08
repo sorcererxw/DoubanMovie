@@ -9,4 +9,6 @@
     <string name="action_more">更多</string>
 
     <string name="no_rating">暂无评分</string>
+
+    <string name="transition_name_movie_image" translatable="false">movie_img</string>
 </resources>
