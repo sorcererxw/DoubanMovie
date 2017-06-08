@@ -38,9 +38,8 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("");
         mInTheaterView.init(getString(R.string.in_theaters), getString(R.string.action_more), null,
                 DoubanClient.getInstance().inTheaters());
-        mComingSoonView
-                .init(getString(R.string.coming_soon), getString(R.string.action_more), null,
-                        DoubanClient.getInstance().comingSoon(0, 10));
+        mComingSoonView.init(getString(R.string.coming_soon), getString(R.string.action_more), null,
+                DoubanClient.getInstance().comingSoon(0, 10));
         mTop250View.init(getString(R.string.top250), getString(R.string.action_more), null,
                 DoubanClient.getInstance().top250(0, 10));
         mUsBox.init(getString(R.string.us_box), getString(R.string.action_more), null,
