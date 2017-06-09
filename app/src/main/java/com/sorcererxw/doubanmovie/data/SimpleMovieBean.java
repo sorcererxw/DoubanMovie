@@ -1,5 +1,8 @@
 package com.sorcererxw.doubanmovie.data;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.sorcererxw.doubanmovie.api.douban.data.SimpleSubjectData;
 
 /**
@@ -8,7 +11,7 @@ import com.sorcererxw.doubanmovie.api.douban.data.SimpleSubjectData;
  * @date: 2017/6/7
  */
 
-public class SimpleMovieBean {
+public class SimpleMovieBean implements Parcelable {
 
     private String mId;
     private String mTitle;
@@ -16,6 +19,42 @@ public class SimpleMovieBean {
     private String mImageUrl;
     private double mRating;
     private String mYear;
+
+    protected SimpleMovieBean(Parcel in) {
+        mId = in.readString();
+        mTitle = in.readString();
+        mOriginTitle = in.readString();
+        mImageUrl = in.readString();
+        mRating = in.readDouble();
+        mYear = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mId);
+        dest.writeString(mTitle);
+        dest.writeString(mOriginTitle);
+        dest.writeString(mImageUrl);
+        dest.writeDouble(mRating);
+        dest.writeString(mYear);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<SimpleMovieBean> CREATOR = new Creator<SimpleMovieBean>() {
+        @Override
+        public SimpleMovieBean createFromParcel(Parcel in) {
+            return new SimpleMovieBean(in);
+        }
+
+        @Override
+        public SimpleMovieBean[] newArray(int size) {
+            return new SimpleMovieBean[size];
+        }
+    };
 
     public static SimpleMovieBean from(SimpleSubjectData subject) {
         return new SimpleMovieBean(
@@ -43,9 +82,6 @@ public class SimpleMovieBean {
         mYear = year;
     }
 
-    SimpleMovieBean() {
-    }
-
     public String getId() {
         return mId;
     }
@@ -60,5 +96,13 @@ public class SimpleMovieBean {
 
     public double getRating() {
         return mRating;
+    }
+
+    public String getOriginTitle() {
+        return mOriginTitle;
+    }
+
+    public String getYear() {
+        return mYear;
     }
 }
