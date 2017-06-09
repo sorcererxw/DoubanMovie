@@ -52,4 +52,28 @@ public class MovieBean extends SimpleMovieBean {
         mDirectors = directors;
         mAka = aka;
     }
+
+    public String getSummary() {
+        return mSummary;
+    }
+
+    public List<String> getCountries() {
+        return mCountries;
+    }
+
+    public List<String> getGenres() {
+        return mGenres;
+    }
+
+    public List<String> getAka() {
+        return mAka;
+    }
+
+    public List<SimpleCelebrityBean> getDirectors() {
+        return mDirectors;
+    }
+
+    public List<SimpleCelebrityBean> getCasts() {
+        return mCasts;
+    }
 }

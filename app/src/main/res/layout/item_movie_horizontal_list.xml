@@ -25,7 +25,7 @@
         android:maxLines="1"
         android:maxWidth="@dimen/list_movie_image_width"
         android:textColor="@color/md_grey_800"
-        android:textSize="14dp"/>
+        android:textSize="@dimen/horizontal_list_primary_text_size"/>
 
     <!--22dp-->
     <RelativeLayout
@@ -56,7 +56,7 @@
             android:layout_centerVertical="true"
             android:layout_toEndOf="@id/ratingBar_item_main_lists_item"
             android:textColor="@color/md_grey_500"
-            android:textSize="12dp"
+            android:textSize="@dimen/horizontal_list_secondary_text_size"
             tools:text="3.4"/>
     </RelativeLayout>
 

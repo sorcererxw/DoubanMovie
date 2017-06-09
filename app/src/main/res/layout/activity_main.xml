@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/md_grey_100"
+    android:background="@color/colorBackground"
     android:orientation="vertical"
     tools:context="com.sorcererxw.doubanmovie.ui.activities.MainActivity">
 
@@ -15,7 +15,7 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar_main"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="?attr/actionBarSize"/>
 
     </android.support.design.widget.AppBarLayout>
 
@@ -29,18 +29,22 @@
                       android:paddingTop="4dp">
 
             <com.sorcererxw.doubanmovie.ui.views.MovieHorizontalListView
+                android:alpha="0"
                 android:id="@+id/movieHorizontalListView_main_comingsoon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <com.sorcererxw.doubanmovie.ui.views.MovieHorizontalListView
+                android:alpha="0"
                 android:id="@+id/movieHorizontalListView_main_intheaters"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <com.sorcererxw.doubanmovie.ui.views.MovieHorizontalListView
+                android:alpha="0"
                 android:id="@+id/movieHorizontalListView_main_usbox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <com.sorcererxw.doubanmovie.ui.views.MovieHorizontalListView
+                android:alpha="0"
                 android:id="@+id/movieHorizontalListView_main_top250"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>

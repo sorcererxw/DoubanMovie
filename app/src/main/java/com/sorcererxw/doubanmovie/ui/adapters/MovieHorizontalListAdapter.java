@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
@@ -64,6 +65,8 @@ public class MovieHorizontalListAdapter
     public void onBindViewHolder(ViewHolder holder, int position) {
         SimpleMovieBean movie = mList.get(position);
 
+        runEnterAnimation(holder.itemView, position);
+
         Glide.with(mActivity)
                 .load(movie.getImageUrl())
                 .transition(new DrawableTransitionOptions().crossFade(500))
@@ -71,9 +74,8 @@ public class MovieHorizontalListAdapter
 
         holder.mTitle.setText(movie.getTitle());
         holder.itemView.setOnClickListener(v -> {
-
             Intent intent = new Intent(mActivity, MovieDetailActivity.class);
-            intent.putExtra("movie_id", movie.getId());
+            intent.putExtra("movie", movie);
             ActivityOptionsCompat options =
                     ActivityOptionsCompat.makeSceneTransitionAnimation(mActivity, holder.mPicture,
                             mActivity.getString(R.string.transition_name_movie_image));
@@ -87,6 +89,21 @@ public class MovieHorizontalListAdapter
         } else {
             holder.mRatingInfo.setText(mActivity.getString(R.string.no_rating));
             holder.mRatingBar.setVisibility(View.GONE);
+        }
+    }
+
+    private int mLastAnimatedPosition = -1;
+
+    private void runEnterAnimation(View view, int position) {
+        if (position > mLastAnimatedPosition) {
+            mLastAnimatedPosition = position;
+            view.setAlpha(0);
+            view.animate()
+                    .alpha(1)
+                    .setStartDelay(200 * position)
+                    .setInterpolator(new DecelerateInterpolator(3.f))
+                    .setDuration(500)
+                    .start();
         }
     }
 

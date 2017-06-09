@@ -1,17 +1,28 @@
 package com.sorcererxw.doubanmovie.ui.activities;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.animation.AccelerateDecelerateInterpolator;
 
 import com.sorcererxw.doubanmovie.R;
 import com.sorcererxw.doubanmovie.api.douban.DoubanClient;
 import com.sorcererxw.doubanmovie.ui.views.MovieHorizontalListView;
 
 import butterknife.BindView;
+import butterknife.BindViews;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
+
+    @BindViews({
+                       R.id.movieHorizontalListView_main_comingsoon,
+                       R.id.movieHorizontalListView_main_intheaters,
+                       R.id.movieHorizontalListView_main_usbox,
+                       R.id.movieHorizontalListView_main_top250,
+               })
+    MovieHorizontalListView[] mViews;
 
     @BindView(R.id.movieHorizontalListView_main_intheaters)
     MovieHorizontalListView mInTheaterView;
@@ -44,5 +55,15 @@ public class MainActivity extends AppCompatActivity {
                 DoubanClient.getInstance().top250(0, 10));
         mUsBox.init(getString(R.string.us_box), getString(R.string.action_more), null,
                 DoubanClient.getInstance().usBox());
+
+        new Handler(getMainLooper()).postDelayed(() -> {
+            for (int i = 0; i < mViews.length; i++) {
+                mViews[i].setTranslationY(mViews[i].getHeight());
+                mViews[i].animate().alpha(1).translationY(0).setStartDelay(i * 200)
+                        .setInterpolator(new AccelerateDecelerateInterpolator())
+                        .setDuration(400).start();
+            }
+        }, 500);
+
     }
 }
