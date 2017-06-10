@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
@@ -26,12 +25,15 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.jaeger.library.StatusBarUtil;
+import com.mikepenz.google_material_typeface_library.GoogleMaterial;
+import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.materialize.util.UIUtils;
 import com.sorcererxw.doubanmovie.R;
 import com.sorcererxw.doubanmovie.api.douban.DoubanClient;
 import com.sorcererxw.doubanmovie.data.MovieBean;
 import com.sorcererxw.doubanmovie.data.SimpleMovieBean;
 import com.sorcererxw.doubanmovie.ui.adapters.CelebrityAdapter;
+import com.sorcererxw.doubanmovie.utils.ColorUtil;
 
 import java.util.Arrays;
 
@@ -83,11 +85,15 @@ public class MovieDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_movie);
         ButterKnife.bind(this);
 
         SimpleMovieBean movie = getIntent().getParcelableExtra("movie");
         Glide.with(this).load(movie.getImageUrl()).into(mPoster);
+        Glide.with(this).load(movie.getImageUrl())
+                .transition(new DrawableTransitionOptions().crossFade(1000))
+                .into(mBackgroundImage);
 
         mTitleText.setText(movie.getTitle());
         if (movie.getOriginTitle().equals(movie.getTitle()) || movie.getOriginTitle().isEmpty()) {
@@ -96,12 +102,8 @@ public class MovieDetailActivity extends AppCompatActivity {
             mOriginalTitleText.setText(movie.getOriginTitle());
         }
 
-//        StatusBarUtil.setTranslucent(this);
-
         setSupportActionBar(mToolbar);
         assert getSupportActionBar() != null;
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle(movie.getTitle());
 
         mCollapsingToolbarLayout.setTitleEnabled(false);
@@ -156,10 +158,6 @@ public class MovieDetailActivity extends AppCompatActivity {
                 )
         );
 
-        Glide.with(this).load(mMovie.getImageUrl())
-                .transition(new DrawableTransitionOptions().crossFade(1000))
-                .into(mBackgroundImage);
-
         CelebrityAdapter adapter = new CelebrityAdapter(this, Stream.concat(
                 Stream.of(mMovie.getDirectors()).map(simpleCelebrityBean ->
                         new Pair<>(simpleCelebrityBean, getString(R.string.role_director))),
@@ -199,14 +197,38 @@ public class MovieDetailActivity extends AppCompatActivity {
     }
 
     private void tintToolbar(Bitmap bitmap) {
-
-        final int defaultPrimaryColor =
-                ContextCompat.getColor(MovieDetailActivity.this, R.color.colorPrimary);
         new Palette.Builder(bitmap).generate(palette -> {
-//            palette.getSwatches()
-            if (palette.getDominantSwatch() != null) {
-//                mToolbar.setBackgroundColor(palette.getDominantColor(defaultPrimaryColor));
+            Palette.Swatch swatch = Stream.of(new Palette.Swatch[]{
+                    palette.getVibrantSwatch(),
+                    palette.getLightVibrantSwatch(),
+                    palette.getMutedSwatch(),
+                    palette.getLightMutedSwatch(),
+                    palette.getDarkMutedSwatch(),
+                    palette.getDarkVibrantSwatch(),
+                    palette.getDominantSwatch()
+            })
+                    .filter(value -> value != null)
+                    .findFirst()
+                    .get();
+            assert getSupportActionBar() != null;
+            if (swatch != null) {
+                mCollapsingToolbarLayout
+                        .setStatusBarScrimColor(ColorUtil.primaryToPrimaryDark(swatch.getRgb()));
+                mCollapsingToolbarLayout
+                        .setContentScrimColor(swatch.getRgb());
+                mCollapsingToolbarLayout
+                        .setBackgroundColor(swatch.getRgb());
+                mCollapsingToolbarLayout.setCollapsedTitleTextColor(swatch.getTitleTextColor());
+                mToolbar.setTitleTextColor(swatch.getBodyTextColor());
+                getSupportActionBar().setHomeAsUpIndicator(
+                        new IconicsDrawable(MovieDetailActivity.this,
+                                GoogleMaterial.Icon.gmd_arrow_back)
+                                .sizeDp(16)
+                                .color(swatch.getBodyTextColor())
+                );
             }
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
         });
     }
 
