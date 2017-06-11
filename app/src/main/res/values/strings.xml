@@ -31,4 +31,12 @@
     <string name="action_search">搜索</string>
     <string name="action_setting">设置</string>
 
+    <string-array name="pager_name">
+        <item>Top1-50</item>
+        <item>Top51-100</item>
+        <item>Top101-150</item>
+        <item>Top151-200</item>
+        <item>Top201-250</item>
+    </string-array>
+
 </resources>

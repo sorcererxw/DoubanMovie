@@ -54,7 +54,9 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(mSearchToolbar);
         mSearchToolbar.setTitle(R.string.app_name);
         mSearchToolbar.setOnClickListener(v -> {
-
+            Intent intent = new Intent();
+            intent.setClass(MainActivity.this, SearchActivity.class);
+            MainActivity.this.startActivity(intent);
         });
         assert getSupportActionBar() != null;
 
@@ -77,7 +79,11 @@ public class MainActivity extends AppCompatActivity {
                     MainActivity.this.startActivity(intent);
                 },
                 DoubanClient.getInstance().comingSoon(0, 10));
-        mTop250View.init(getString(R.string.top250), getString(R.string.action_more), null,
+        mTop250View.init(getString(R.string.top250), getString(R.string.action_more), () -> {
+                    Intent intent = new Intent();
+                    intent.setClass(MainActivity.this, Top250Activity.class);
+                    MainActivity.this.startActivity(intent);
+                },
                 DoubanClient.getInstance().top250(0, 10));
         mUsBox.init(getString(R.string.us_box), getString(R.string.action_more), () -> {
                     Intent intent = new Intent();

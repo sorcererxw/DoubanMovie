@@ -88,4 +88,5 @@ dependencies {
     compile 'com.mikepenz:google-material-typeface:3.0.1.0.original@aar'
     // jsoup
     compile 'org.jsoup:jsoup:1.10.2'
+    compile 'com.github.mancj:MaterialSearchBar:0.7'
 }
