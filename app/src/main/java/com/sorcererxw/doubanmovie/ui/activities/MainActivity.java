@@ -71,7 +71,11 @@ public class MainActivity extends AppCompatActivity {
                     intent.setClass(MainActivity.this, JustNowActivity.class);
                     MainActivity.this.startActivity(intent);
                 }, DoubanClient.getInstance().inTheaters());
-        mComingSoonView.init(getString(R.string.coming_soon), getString(R.string.action_more), null,
+        mComingSoonView.init(getString(R.string.coming_soon), getString(R.string.action_more), () -> {
+                    Intent intent = new Intent();
+                    intent.setClass(MainActivity.this, ComingSoonActivity.class);
+                    MainActivity.this.startActivity(intent);
+                },
                 DoubanClient.getInstance().comingSoon(0, 10));
         mTop250View.init(getString(R.string.top250), getString(R.string.action_more), null,
                 DoubanClient.getInstance().top250(0, 10));
