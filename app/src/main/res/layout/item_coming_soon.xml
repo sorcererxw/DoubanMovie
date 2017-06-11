@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout_item_coming_soon_item_container"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:foreground="?android:attr/selectableItemBackground">
+
+    <ImageView
+        android:id="@+id/imageView_item_coming_soon"
+        android:layout_width="90dp"
+        android:layout_height="135dp"
+        android:layout_margin="16dp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="135dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp">
+
+        <LinearLayout
+            android:layout_width="166dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/title_item_coming_soon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/md_grey_900"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:text="movie" />
+
+            <TextView
+                android:id="@+id/textView_item_coming_soon_movie_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="导演：XXX\n主演：XXX / XXX / XXX"
+                android:textColor="@color/md_grey_500" />
+
+            <TextView
+                android:id="@+id/textView_item_coming_soon_seenNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20599人想看"
+                android:textColor="@color/md_grey_900" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <com.sorcererxw.doubanmovie.ui.views.StateButton
+                android:layout_width="64dp"
+                android:layout_height="36dp"
+                android:layout_gravity="center_horizontal"
+                android:padding="10dp"
+                android:text="想看"
+                app:normalStrokeColor="@color/md_orange_500"
+                app:normalStrokeWidth="1dp"
+                app:normalTextColor="@color/md_orange_500"
+                app:pressedBackgroundColor="@color/md_orange_500"
+                app:pressedStrokeColor="@color/md_orange_500"
+                app:pressedStrokeWidth="1dp"
+                app:pressedTextColor="@android:color/white"
+                app:radius="5dp" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
