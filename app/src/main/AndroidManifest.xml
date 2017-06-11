@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.sorcererxw.doubanmovie">
+    package="com.sorcererxw.doubanmovie">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name=".App"
@@ -12,18 +12,22 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activities.MainActivity"
-                  android:theme="@style/AppTheme.MainActivity">
+        <activity
+            android:name=".ui.activities.MainActivity"
+            android:theme="@style/AppTheme.MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activities.MovieDetailActivity">
-        </activity>
-        <activity android:name=".ui.activities.CelebrityActivity">
-        </activity>
+        <activity android:name=".ui.activities.MovieDetailActivity" />
+        <activity android:name=".ui.activities.CelebrityActivity" />
+        <activity android:name=".ui.activities.JustNowActivity" />
+        <activity android:name=".ui.activities.ComingSoonActivity" />
+        <activity android:name=".ui.activities.Top250Activity" />
+        <activity android:name=".ui.activities.UsRankingActivity" />
+        <activity android:name=".ui.activities.SearchActivity"></activity>
     </application>
 
 </manifest>

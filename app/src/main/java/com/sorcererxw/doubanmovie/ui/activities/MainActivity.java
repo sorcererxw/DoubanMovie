@@ -1,5 +1,6 @@
 package com.sorcererxw.doubanmovie.ui.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
@@ -56,6 +57,15 @@ public class MainActivity extends AppCompatActivity {
 
         });
         assert getSupportActionBar() != null;
+
+        getSupportActionBar().setTitle("");
+        mInTheaterView.init(getString(R.string.in_theaters), getString(R.string.action_more),
+                () -> {
+                    Intent intent = new Intent();
+                    intent.setClass(MainActivity.this, JustNowActivity.class);
+                    MainActivity.this.startActivity(intent);
+                },
+
         getSupportActionBar().setHomeAsUpIndicator(new IconicsDrawable(this,
                 GoogleMaterial.Icon.gmd_search)
                 .sizeDp(16)
@@ -64,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         mInTheaterView.init(getString(R.string.in_theaters), getString(R.string.action_more), null,
+
                 DoubanClient.getInstance().inTheaters());
         mComingSoonView.init(getString(R.string.coming_soon), getString(R.string.action_more), null,
                 DoubanClient.getInstance().comingSoon(0, 10));
@@ -83,9 +94,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         new MenuInflater(this).inflate(R.menu.menu_main, menu);
         return super.onCreateOptionsMenu(menu);
     }
+
 }
