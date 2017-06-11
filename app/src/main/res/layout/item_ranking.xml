@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout_item_ranking_item_container"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:foreground="?android:attr/selectableItemBackground">
+
+    <LinearLayout
+        android:layout_marginTop="32dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:background="@color/md_grey_100"
+            android:layout_marginRight="16dp"
+            android:layout_width="48dp"
+            android:layout_height="1dp" />
+
+        <TextView
+            android:textStyle="italic"
+            android:layout_marginRight="16dp"
+            android:id="@+id/textViewe_ranking"
+            android:textColor="@color/md_grey_700"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="1" />
+
+        <View
+            android:background="@color/md_grey_100"
+            android:layout_width="48dp"
+            android:layout_height="1dp" />
+
+    </LinearLayout>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageView_item_ranking"
+                android:layout_width="112dp"
+                android:layout_height="152dp"
+                android:layout_margin="16dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="152dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="16dp">
+
+                <LinearLayout
+                    android:layout_width="182dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="16dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/title_item_ranking"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/md_grey_900"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        tools:text="movie" />
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="16dp"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginTop="2dp">
+
+                        <RatingBar
+                            android:id="@+id/ratingBar_item_ranking"
+                            style="@style/RatingBar.Small"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="4dp"
+                            android:isIndicator="true"
+                            android:maxHeight="16dp"
+                            android:numStars="5"
+                            android:progressBackgroundTint="@color/md_grey_400"
+                            android:progressTint="@color/md_yellow_600"
+                            android:secondaryProgressTint="#00000000"
+                            android:stepSize="0.1"
+                            tools:rating="3.4" />
+
+                        <TextView
+                            android:id="@+id/textView_item_ranking_rating_info"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toEndOf="@id/ratingBar_item_just_now"
+                            android:textColor="@color/md_grey_500"
+                            android:textSize="@dimen/horizontal_list_secondary_text_size"
+                            tools:text="3.4" />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/textView_item_ranking_movie_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="导演：XXX\n主演：XXX / XXX / XXX"
+                        android:textColor="@color/md_grey_500" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>
