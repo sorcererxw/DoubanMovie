@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorBackground"
     android:orientation="vertical"
     tools:context="com.sorcererxw.doubanmovie.ui.activities.MainActivity">
@@ -12,11 +12,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar_main"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"/>
+            android:layout_height="@dimen/toolbar_semi_expanded_height"
+            android:background="?android:attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways">
 
+            <com.sorcererxw.doubanmovie.ui.views.ExposedSearchToolbar
+                android:id="@+id/exposedSearchToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/padding_tight"
+                android:background="?attr/colorCard"
+                android:elevation="@dimen/toolbar_elevation"
+                android:foreground="?attr/selectableItemBackground"/>
+        </FrameLayout>
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView

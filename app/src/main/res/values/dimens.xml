@@ -18,4 +18,10 @@
 
     <dimen name="horizontal_list_detail_primary_text_size">12dp</dimen>
     <dimen name="horizontal_list_detail_secondary_text_size">10dp</dimen>
+
+    <dimen name="card_corner_radius">2dp</dimen>
+    <dimen name="padding_tight">8dp</dimen>
+    <dimen name="toolbar_elevation">2dp</dimen>
+    <dimen name="toolbar_minHeight">56dp</dimen>
+    <dimen name="toolbar_semi_expanded_height">64dp</dimen>
 </resources>

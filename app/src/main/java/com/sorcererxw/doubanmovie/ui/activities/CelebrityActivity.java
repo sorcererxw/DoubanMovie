@@ -1,101 +1,230 @@
 package com.sorcererxw.doubanmovie.ui.activities;
 
+import android.graphics.Bitmap;
+import android.graphics.Rect;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
+import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.graphics.Palette;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
-import android.widget.LinearLayout;
+import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.annimon.stream.Stream;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
+import com.jaeger.library.StatusBarUtil;
+import com.mikepenz.google_material_typeface_library.GoogleMaterial;
+import com.mikepenz.iconics.IconicsDrawable;
+import com.mikepenz.materialize.util.UIUtils;
 import com.sorcererxw.doubanmovie.R;
+import com.sorcererxw.doubanmovie.api.douban.DoubanClient;
+import com.sorcererxw.doubanmovie.api.douban.DoubanSpider;
+import com.sorcererxw.doubanmovie.data.CelebrityBean;
+import com.sorcererxw.doubanmovie.data.SimpleCelebrityBean;
+import com.sorcererxw.doubanmovie.ui.adapters.DetailMovieHorizontalListAdapter;
+import com.sorcererxw.doubanmovie.utils.ColorUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 
-public class CelebrityActivity extends AppCompatActivity implements
-        AppBarLayout.OnOffsetChangedListener {
+public class CelebrityActivity extends AppCompatActivity {
 
-    @BindView(R.id.appBarLayout_celebrity)
-    AppBarLayout mAppBarLayout;
+    @BindView(R.id.imageView_celebrity_photo)
+    ImageView mPhoto;
+
+    @BindView(R.id.imageView_celebrity_bg)
+    ImageView mBg;
+
+    @BindView(R.id.toolbar_celebrity)
+    Toolbar mToolbar;
 
     @BindView(R.id.collapsingToolbarLayout_celebrity)
     CollapsingToolbarLayout mCollapsingToolbarLayout;
 
-    @BindView(R.id.textView_celebrity_toolbar_text)
-    TextView mToolbarText;
+    @BindView(R.id.textView_celebrity_name)
+    TextView mName;
 
-    @BindView(R.id.linearLayout_celebrity_title_container)
-    LinearLayout mTitleContainer;
+    @BindView(R.id.textView_celebrity_name_en)
+    TextView mEnName;
 
-    private static final float PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR = 0.9f;
-    private static final float PERCENTAGE_TO_HIDE_TITLE_DETAILS = 0.3f;
-    private static final int ALPHA_ANIMATIONS_DURATION = 200;
+    @BindView(R.id.cardView_celebrity_work)
+    CardView mWorkCard;
 
-    private boolean mIsTheTitleVisible = false;
-    private boolean mIsTheTitleContainerVisible = true;
+    @BindView(R.id.linearLayout_celebrity_content_container)
+    ViewGroup mContentContainer;
+//
+//    @BindView(R.id.cardView_celebrity_summary)
+//    CardView mSummaryCard;
+//
+//    @BindView(R.id.textView_celebrity_summary)
+//    TextView mSummaryText;
+
+    @BindView(R.id.textView_celebrity_info)
+    TextView mInfo;
+
+    @BindView(R.id.recyclerView_celebrity_work)
+    RecyclerView mRecyclerView;
+
+    private CelebrityBean mCelebrity;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_celebrity);
         ButterKnife.bind(this);
 
-        mAppBarLayout.addOnOffsetChangedListener(this);
-        startAlphaAnimation(mToolbarText, 0, View.INVISIBLE);
+        SimpleCelebrityBean celebrity = getIntent().getParcelableExtra("celebrity");
+        Glide.with(this).load(celebrity.getImageUrl()).into(mPhoto);
+        Glide.with(this).load(celebrity.getImageUrl())
+                .transition(new DrawableTransitionOptions().crossFade(1000)).into(mBg);
 
+        mName.setText(celebrity.getName());
+
+        StatusBarUtil.setTransparent(this);
+
+        setSupportActionBar(mToolbar);
+        assert getSupportActionBar() != null;
+        getSupportActionBar().setTitle(celebrity.getName());
+
+
+        Glide.with(this).asBitmap().load(celebrity.getImageUrl()).into(new SimpleTarget<Bitmap>() {
+            @Override
+            public void onResourceReady(Bitmap resource,
+                                        Transition<? super Bitmap> transition) {
+                tintToolbar(resource);
+            }
+        });
+        Observable.just(celebrity.getId())
+                .observeOn(Schedulers.io())
+                .map(DoubanSpider::getCelebritySummary)
+                .filter(s -> !s.isEmpty())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(s -> {
+                    View summaryCard =
+                            View.inflate(this, R.layout.layout_celebrity_summary_card, null);
+                    ((TextView) summaryCard.findViewById(R.id.textView_celebrity_summary))
+                            .setText(Html.fromHtml(s));
+                    mContentContainer.addView(summaryCard, 1);
+                }, Timber::d);
+
+        DoubanClient.getInstance().celebrity(celebrity.getId())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(celebrityBean -> {
+                    mCelebrity = celebrityBean;
+                    init();
+                    if (!mEnName.getText().toString().isEmpty()
+                            && !mEnName.getText().toString().equals(mName.getText().toString())) {
+                        mEnName.animate().alpha(1).start();
+                    } else {
+                        mEnName.setVisibility(View.GONE);
+                    }
+                    if (!mInfo.getText().toString().isEmpty()) {
+                        mInfo.animate().alpha(1).start();
+                    }
+                    if (!mCelebrity.getMovieList().isEmpty()) {
+                        mWorkCard.setTranslationY(mWorkCard.getHeight());
+                        mWorkCard.animate().alpha(1).translationY(0).setDuration(500)
+                                .setInterpolator(new AccelerateDecelerateInterpolator()).start();
+                    }
+                }, Timber::e);
+    }
+
+    private void init() {
+        mEnName.setText(mCelebrity.getNameEn());
+
+        String info = "";
+        if (!mCelebrity.getGender().isEmpty()) {
+            info = info + "<b>" + getString(R.string.celebrity_gender) + ": </b>"
+                    + mCelebrity.getGender() + "<br/>";
+        }
+        if (!mCelebrity.getBornPlace().isEmpty()) {
+            info = info + "<b>" + getString(R.string.celebrity_born_place) + ": </b>"
+                    + mCelebrity.getBornPlace() + "<br/>";
+        }
+        if (!info.isEmpty()) {
+            mInfo.setText(Html.fromHtml(info));
+        }
+
+        mRecyclerView
+                .setAdapter(new DetailMovieHorizontalListAdapter(this, mCelebrity.getMovieList()));
+        mRecyclerView.setLayoutManager(
+                new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        mRecyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void getItemOffsets(Rect outRect, View view, RecyclerView parent,
+                                       RecyclerView.State state) {
+                super.getItemOffsets(outRect, view, parent, state);
+                int pos = parent.getChildAdapterPosition(view);
+                if (pos == 0) {
+                    outRect.right = (int) UIUtils.convertDpToPixel(4, CelebrityActivity.this);
+                    outRect.left = (int) UIUtils.convertDpToPixel(16, CelebrityActivity.this);
+                } else if (pos == state.getItemCount() - 1) {
+                    outRect.right = (int) UIUtils.convertDpToPixel(16, CelebrityActivity.this);
+                    outRect.left = (int) UIUtils.convertDpToPixel(4, CelebrityActivity.this);
+                } else {
+                    outRect.right = (int) UIUtils.convertDpToPixel(4, CelebrityActivity.this);
+                    outRect.left = (int) UIUtils.convertDpToPixel(4, CelebrityActivity.this);
+                }
+            }
+        });
     }
 
     @Override
-    public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-        int maxScroll = mAppBarLayout.getTotalScrollRange();
-        float percentage = (float) Math.abs(verticalOffset) / (float) maxScroll;
-        handleToolbarTitleVisibility(percentage);
-        handleAlphaOnTitle(percentage);
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
-    private void handleToolbarTitleVisibility(float percentage) {
-        if (percentage >= PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR) {
-
-            if (!mIsTheTitleVisible) {
-                startAlphaAnimation(mToolbarText, ALPHA_ANIMATIONS_DURATION, View.VISIBLE);
-                mIsTheTitleVisible = true;
+    private void tintToolbar(Bitmap bitmap) {
+        new Palette.Builder(bitmap).generate(palette -> {
+            Palette.Swatch swatch = Stream.of(new Palette.Swatch[]{
+                    palette.getVibrantSwatch(),
+                    palette.getLightVibrantSwatch(),
+                    palette.getMutedSwatch(),
+                    palette.getLightMutedSwatch(),
+                    palette.getDarkMutedSwatch(),
+                    palette.getDarkVibrantSwatch(),
+                    palette.getDominantSwatch()
+            })
+                    .filter(value -> value != null)
+                    .findFirst()
+                    .get();
+            assert getSupportActionBar() != null;
+            if (swatch != null) {
+                mCollapsingToolbarLayout
+                        .setStatusBarScrimColor(ColorUtil.primaryToPrimaryDark(swatch.getRgb()));
+                mCollapsingToolbarLayout
+                        .setContentScrimColor(swatch.getRgb());
+                mCollapsingToolbarLayout
+                        .setBackgroundColor(swatch.getRgb());
+                mCollapsingToolbarLayout.setCollapsedTitleTextColor(swatch.getTitleTextColor());
+                mToolbar.setTitleTextColor(swatch.getBodyTextColor());
+                getSupportActionBar().setHomeAsUpIndicator(
+                        new IconicsDrawable(CelebrityActivity.this,
+                                GoogleMaterial.Icon.gmd_arrow_back)
+                                .sizeDp(16)
+                                .color(swatch.getBodyTextColor())
+                );
             }
-
-        } else {
-
-            if (mIsTheTitleVisible) {
-                startAlphaAnimation(mToolbarText, ALPHA_ANIMATIONS_DURATION, View.INVISIBLE);
-                mIsTheTitleVisible = false;
-            }
-        }
-    }
-
-    private void handleAlphaOnTitle(float percentage) {
-        if (percentage >= PERCENTAGE_TO_HIDE_TITLE_DETAILS) {
-            if (mIsTheTitleContainerVisible) {
-                startAlphaAnimation(mTitleContainer, ALPHA_ANIMATIONS_DURATION, View.INVISIBLE);
-                mIsTheTitleContainerVisible = false;
-            }
-
-        } else {
-
-            if (!mIsTheTitleContainerVisible) {
-                startAlphaAnimation(mTitleContainer, ALPHA_ANIMATIONS_DURATION, View.VISIBLE);
-                mIsTheTitleContainerVisible = true;
-            }
-        }
-    }
-
-    public static void startAlphaAnimation(View v, long duration, int visibility) {
-        AlphaAnimation alphaAnimation = (visibility == View.VISIBLE)
-                ? new AlphaAnimation(0f, 1f)
-                : new AlphaAnimation(1f, 0f);
-
-        alphaAnimation.setDuration(duration);
-        alphaAnimation.setFillAfter(true);
-        v.startAnimation(alphaAnimation);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        });
     }
 }

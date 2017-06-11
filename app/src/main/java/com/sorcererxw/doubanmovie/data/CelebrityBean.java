@@ -38,4 +38,20 @@ public class CelebrityBean extends SimpleCelebrityBean {
         mBornPlace = bornPlace;
         mMovieList = movieList;
     }
+
+    public String getGender() {
+        return mGender;
+    }
+
+    public String getNameEn() {
+        return mNameEn;
+    }
+
+    public String getBornPlace() {
+        return mBornPlace;
+    }
+
+    public List<SimpleMovieBean> getMovieList() {
+        return mMovieList;
+    }
 }
