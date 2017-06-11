@@ -54,9 +54,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(mSearchToolbar);
         mSearchToolbar.setTitle(R.string.app_name);
         mSearchToolbar.setOnClickListener(v -> {
-            Intent intent = new Intent();
-            intent.setClass(MainActivity.this, SearchActivity.class);
-            MainActivity.this.startActivity(intent);
         });
         assert getSupportActionBar() != null;
 
