@@ -59,7 +59,7 @@ public class MovieHorizontalListView extends FrameLayout {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
-    interface OnActionClickListener {
+    public interface OnActionClickListener {
         void onClick();
     }
 

@@ -1,5 +1,6 @@
 package com.sorcererxw.doubanmovie.ui.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -47,7 +48,14 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         assert getSupportActionBar() != null;
         getSupportActionBar().setTitle("");
-        mInTheaterView.init(getString(R.string.in_theaters), getString(R.string.action_more), null,
+        mInTheaterView.init(getString(R.string.in_theaters), getString(R.string.action_more), new MovieHorizontalListView.OnActionClickListener() {
+                    @Override
+                    public void onClick() {
+                        Intent intent = new Intent();
+                        intent.setClass(MainActivity.this, JustNowActivity.class);
+                        MainActivity.this.startActivity(intent);
+                    }
+                },
                 DoubanClient.getInstance().inTheaters());
         mComingSoonView.init(getString(R.string.coming_soon), getString(R.string.action_more), null,
                 DoubanClient.getInstance().comingSoon(0, 10));
@@ -66,4 +74,5 @@ public class MainActivity extends AppCompatActivity {
         }, 500);
 
     }
+
 }
