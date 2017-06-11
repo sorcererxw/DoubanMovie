@@ -2,6 +2,7 @@ package com.sorcererxw.doubanmovie.ui.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
@@ -46,10 +47,10 @@ public class JustNowActivity extends AppCompatActivity {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(movieBeen -> {
                     Timber.d(movieBeen.size() + "");
-                    mAdapter = new MovieVerticalListAdapter(this, R.id.imageView_item_just_now, movieBeen);
+                    mAdapter = new MovieVerticalListAdapter(this, movieBeen);
+                    list.setLayoutManager(
+                            new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
                     list.setAdapter(mAdapter);
-
-//                    initList(movieBeen);
                 }, Timber::e);
         getSupportActionBar().setTitle("正在热映");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
