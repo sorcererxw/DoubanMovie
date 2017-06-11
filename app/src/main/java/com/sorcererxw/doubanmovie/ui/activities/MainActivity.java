@@ -48,13 +48,11 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         assert getSupportActionBar() != null;
         getSupportActionBar().setTitle("");
-        mInTheaterView.init(getString(R.string.in_theaters), getString(R.string.action_more), new MovieHorizontalListView.OnActionClickListener() {
-                    @Override
-                    public void onClick() {
-                        Intent intent = new Intent();
-                        intent.setClass(MainActivity.this, JustNowActivity.class);
-                        MainActivity.this.startActivity(intent);
-                    }
+        mInTheaterView.init(getString(R.string.in_theaters), getString(R.string.action_more),
+                () -> {
+                    Intent intent = new Intent();
+                    intent.setClass(MainActivity.this, JustNowActivity.class);
+                    MainActivity.this.startActivity(intent);
                 },
                 DoubanClient.getInstance().inTheaters());
         mComingSoonView.init(getString(R.string.coming_soon), getString(R.string.action_more), null,
