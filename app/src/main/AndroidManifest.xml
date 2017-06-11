@@ -27,7 +27,7 @@
         <activity android:name=".ui.activities.ComingSoonActivity" />
         <activity android:name=".ui.activities.Top250Activity" />
         <activity android:name=".ui.activities.UsRankingActivity" />
-        <activity android:name=".ui.activities.SearchActivity"></activity>
+        <activity android:name=".ui.activities.SearchActivity"/>
     </application>
 
 </manifest>

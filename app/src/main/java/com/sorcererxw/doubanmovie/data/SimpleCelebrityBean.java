@@ -50,7 +50,7 @@ public class SimpleCelebrityBean implements Parcelable {
         return new SimpleCelebrityBean(
                 celebrity.getId(),
                 celebrity.getName(),
-                celebrity.getAvatars().getLarge()
+                celebrity.getAvatars() == null ? "" : celebrity.getAvatars().getLarge()
         );
     }
 
@@ -71,4 +71,5 @@ public class SimpleCelebrityBean implements Parcelable {
     public String getImageUrl() {
         return mImageUrl;
     }
+
 }

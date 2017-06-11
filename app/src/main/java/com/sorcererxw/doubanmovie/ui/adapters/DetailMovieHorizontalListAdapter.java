@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -27,24 +26,24 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * @description: 详情内作品内的横向列表适配器
+ * @description:
  * @author: Sorcerer
- * @date: 2017/6/7
+ * @date: 2017/6/11
  */
 
-public class MovieHorizontalListAdapter
-        extends RecyclerView.Adapter<MovieHorizontalListAdapter.ViewHolder> {
-    Activity mActivity;
+public class DetailMovieHorizontalListAdapter
+        extends RecyclerView.Adapter<DetailMovieHorizontalListAdapter.ViewHolder> {
+    private Activity mActivity;
 
     private List<SimpleMovieBean> mList;
 
-    public MovieHorizontalListAdapter(Activity context) {
+    public DetailMovieHorizontalListAdapter(Activity context) {
         mActivity = context;
         mList = new ArrayList<>();
     }
 
-    public MovieHorizontalListAdapter(Activity context,
-                                      List<SimpleMovieBean> list) {
+    public DetailMovieHorizontalListAdapter(Activity context,
+                                            List<SimpleMovieBean> list) {
         mActivity = context;
         mList = list;
     }
@@ -55,10 +54,10 @@ public class MovieHorizontalListAdapter
 
 
     @Override
-    public MovieHorizontalListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                                    int viewType) {
-        return new MovieHorizontalListAdapter.ViewHolder(LayoutInflater.from(mActivity)
-                .inflate(R.layout.item_movie_horizontal_list, parent, false)
+    public DetailMovieHorizontalListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
+                                                                          int viewType) {
+        return new DetailMovieHorizontalListAdapter.ViewHolder(LayoutInflater.from(mActivity)
+                .inflate(R.layout.item_movie_horizontal_list_detail, parent, false)
         );
     }
 
@@ -84,12 +83,9 @@ public class MovieHorizontalListAdapter
         });
 
         if (movie.getRating() > 0) {
-            holder.mRatingBar.setVisibility(View.VISIBLE);
-            holder.mRatingInfo.setText(String.valueOf(movie.getRating()));
-            holder.mRatingBar.setRating((float) movie.getRating() / 2);
+            holder.mRatingInfo.setText(String.valueOf(movie.getRating()) + " ★");
         } else {
             holder.mRatingInfo.setText(mActivity.getString(R.string.no_rating));
-            holder.mRatingBar.setVisibility(View.GONE);
         }
     }
 
@@ -123,9 +119,6 @@ public class MovieHorizontalListAdapter
 
         @BindView(R.id.textView_item_main_lists_item_title)
         TextView mTitle;
-
-        @BindView(R.id.ratingBar_item_main_lists_item)
-        RatingBar mRatingBar;
 
         @BindView(R.id.textView_item_main_lists_item_rating_info)
         TextView mRatingInfo;

@@ -3,12 +3,17 @@ package com.sorcererxw.doubanmovie.ui.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
+import com.mikepenz.google_material_typeface_library.GoogleMaterial;
+import com.mikepenz.iconics.IconicsDrawable;
 import com.sorcererxw.doubanmovie.R;
 import com.sorcererxw.doubanmovie.api.douban.DoubanClient;
+import com.sorcererxw.doubanmovie.ui.views.ExposedSearchToolbar;
 import com.sorcererxw.doubanmovie.ui.views.MovieHorizontalListView;
 
 import butterknife.BindView;
@@ -37,26 +42,35 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.movieHorizontalListView_main_usbox)
     MovieHorizontalListView mUsBox;
 
-    @BindView(R.id.toolbar_main)
-    Toolbar mToolbar;
+    @BindView(R.id.exposedSearchToolbar)
+    ExposedSearchToolbar mSearchToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        setSupportActionBar(mToolbar);
+
+        setSupportActionBar(mSearchToolbar);
+        mSearchToolbar.setTitle(R.string.app_name);
+        mSearchToolbar.setOnClickListener(v -> {
+
+        });
         assert getSupportActionBar() != null;
-        getSupportActionBar().setTitle("");
-        mInTheaterView.init(getString(R.string.in_theaters), getString(R.string.action_more), new MovieHorizontalListView.OnActionClickListener() {
-                    @Override
-                    public void onClick() {
-                        Intent intent = new Intent();
-                        intent.setClass(MainActivity.this, JustNowActivity.class);
-                        MainActivity.this.startActivity(intent);
-                    }
-                },
-                DoubanClient.getInstance().inTheaters());
+
+        getSupportActionBar().setHomeAsUpIndicator(
+                new IconicsDrawable(this, GoogleMaterial.Icon.gmd_search)
+                        .sizeDp(16)
+                        .color(ContextCompat.getColor(this, R.color.md_grey_700)));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        mInTheaterView.init(getString(R.string.in_theaters), getString(R.string.action_more),
+                () -> {
+                    Intent intent = new Intent();
+                    intent.setClass(MainActivity.this, JustNowActivity.class);
+                    MainActivity.this.startActivity(intent);
+                }, DoubanClient.getInstance().inTheaters());
         mComingSoonView.init(getString(R.string.coming_soon), getString(R.string.action_more), null,
                 DoubanClient.getInstance().comingSoon(0, 10));
         mTop250View.init(getString(R.string.top250), getString(R.string.action_more), null,
@@ -73,6 +87,13 @@ public class MainActivity extends AppCompatActivity {
             }
         }, 500);
 
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        new MenuInflater(this).inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
 }

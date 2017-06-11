@@ -5,6 +5,7 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.util.Pair;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.CardView;
@@ -31,11 +32,14 @@ import com.mikepenz.materialize.util.UIUtils;
 import com.sorcererxw.doubanmovie.R;
 import com.sorcererxw.doubanmovie.api.douban.DoubanClient;
 import com.sorcererxw.doubanmovie.data.MovieBean;
+import com.sorcererxw.doubanmovie.data.SimpleCelebrityBean;
 import com.sorcererxw.doubanmovie.data.SimpleMovieBean;
 import com.sorcererxw.doubanmovie.ui.adapters.CelebrityAdapter;
 import com.sorcererxw.doubanmovie.utils.ColorUtil;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -63,6 +67,9 @@ public class MovieDetailActivity extends AppCompatActivity {
     @BindView(R.id.textView_movie_detail_summary)
     TextView mSummary;
 
+    @BindView(R.id.NestedScrollView_movie)
+    NestedScrollView mScrollView;
+
     @BindView(R.id.imageView_movie_detail_bg)
     ImageView mBackgroundImage;
 
@@ -77,6 +84,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     @BindView(R.id.textView_movie_detail_title)
     TextView mTitleText;
+
     @BindView(R.id.textView_movie_detail_original_title)
     TextView mOriginalTitleText;
 
@@ -106,9 +114,6 @@ public class MovieDetailActivity extends AppCompatActivity {
         assert getSupportActionBar() != null;
         getSupportActionBar().setTitle(movie.getTitle());
 
-        mCollapsingToolbarLayout.setTitleEnabled(false);
-        mCollapsingToolbarLayout.setTitle(movie.getTitle());
-
         StatusBarUtil.setTransparent(this);
 
         Glide.with(this).asBitmap().load(movie.getImageUrl()).into(new SimpleTarget<Bitmap>() {
@@ -129,15 +134,19 @@ public class MovieDetailActivity extends AppCompatActivity {
                     mInfo.animate().alpha(1).setDuration(500)
                             .setInterpolator(new AccelerateDecelerateInterpolator()).start();
 
-                    mSummaryCard.setTranslationY(mSummaryCard.getHeight());
-                    mSummaryCard.animate().alpha(1).translationY(0).setDuration(500)
-                            .setInterpolator(new AccelerateDecelerateInterpolator()).start();
-
-                    mCelebrityCard
-                            .setTranslationY(mCelebrityCard.getHeight());
-                    mCelebrityCard.animate().alpha(1).translationY(0).setDuration(500)
-                            .setStartDelay(300)
-                            .setInterpolator(new AccelerateDecelerateInterpolator()).start();
+                    if (!mMovie.getSummary().isEmpty()) {
+                        mSummaryCard.setTranslationY(mSummaryCard.getHeight());
+                        mSummaryCard.animate().alpha(1).translationY(0).setDuration(500)
+                                .setInterpolator(new AccelerateDecelerateInterpolator()).start();
+                    } else {
+                        mContentContainer.removeView(mSummaryCard);
+                    }
+                    if (!(mMovie.getDirectors().isEmpty() && mMovie.getCasts().isEmpty())) {
+                        mCelebrityCard.setTranslationY(mCelebrityCard.getHeight());
+                        mCelebrityCard.animate().alpha(1).translationY(0).setDuration(500)
+                                .setStartDelay(300)
+                                .setInterpolator(new AccelerateDecelerateInterpolator()).start();
+                    }
                 }, Timber::e);
 
     }
@@ -158,12 +167,45 @@ public class MovieDetailActivity extends AppCompatActivity {
                 )
         );
 
-        CelebrityAdapter adapter = new CelebrityAdapter(this, Stream.concat(
-                Stream.of(mMovie.getDirectors()).map(simpleCelebrityBean ->
-                        new Pair<>(simpleCelebrityBean, getString(R.string.role_director))),
-                Stream.of(mMovie.getCasts()).map(simpleCelebrityBean ->
-                        new Pair<>(simpleCelebrityBean, getString(R.string.role_cast))))
-                .toList());
+        List<SimpleCelebrityBean> directorCastList = new ArrayList<>();
+        List<SimpleCelebrityBean> directorList = new ArrayList<>();
+        List<SimpleCelebrityBean> castList = new ArrayList<>();
+
+        for (int i = 0; i < mMovie.getDirectors().size(); i++) {
+            for (int j = 0; j < mMovie.getCasts().size(); j++) {
+                SimpleCelebrityBean director = mMovie.getDirectors().get(i);
+                SimpleCelebrityBean cast = mMovie.getCasts().get(j);
+                if (director.getId().equals(cast.getId())) {
+                    directorCastList.add(director);
+                } else {
+                    if (!directorList.contains(director) && !directorCastList.contains(director)) {
+                        directorList.add(director);
+                    }
+                    if (!castList.contains(cast) && !directorCastList.contains(cast)) {
+                        castList.add(cast);
+                    }
+                }
+            }
+        }
+
+        CelebrityAdapter adapter = new CelebrityAdapter(this,
+                Stream.concat(
+                        Stream.of(directorCastList).map(simpleCelebrityBean ->
+                                new Pair<>(simpleCelebrityBean, String.format("%s / %s",
+                                        getString(R.string.role_director),
+                                        getString(R.string.role_cast))
+                                )
+                        ),
+                        Stream.concat(
+                                Stream.of(directorList).map(simpleCelebrityBean ->
+                                        new Pair<>(simpleCelebrityBean,
+                                                getString(R.string.role_director))),
+                                Stream.of(castList).map(simpleCelebrityBean ->
+                                        new Pair<>(simpleCelebrityBean,
+                                                getString(R.string.role_cast)))
+                        )
+                )
+                        .toList());
 
         mRecyclerView.setAdapter(adapter);
 
@@ -194,6 +236,11 @@ public class MovieDetailActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
     private void tintToolbar(Bitmap bitmap) {

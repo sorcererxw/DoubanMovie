@@ -9,7 +9,8 @@
     <ImageView
         android:id="@+id/imageView_celebrity_photo"
         android:layout_width="@dimen/list_detail_image_width"
-        android:layout_height="@dimen/list_detail_image_height"/>
+        android:layout_height="@dimen/list_detail_image_height"
+        android:transitionName="@string/transition_name_celebrity_image"/>
 
     <TextView
         android:id="@+id/item_celebrity_name"

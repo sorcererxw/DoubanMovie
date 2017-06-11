@@ -19,7 +19,6 @@ import com.sorcererxw.doubanmovie.R;
 import com.sorcererxw.doubanmovie.data.SimpleMovieBean;
 import com.sorcererxw.doubanmovie.ui.activities.MovieDetailActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -29,22 +28,15 @@ import butterknife.ButterKnife;
  * Created by JGallon on 2017/6/11.
  */
 
-public class MovieVerticalListAdapter extends RecyclerView.Adapter<MovieVerticalListAdapter.ViewHolder> {
+public class MovieVerticalListAdapter
+        extends RecyclerView.Adapter<MovieVerticalListAdapter.ViewHolder> {
 
     private Activity mActivity;
     private List<SimpleMovieBean> mList;
-    private int mresourceID;
 
-    public MovieVerticalListAdapter(Activity context, int resourceID) {
-        mActivity = context;
-        mList = new ArrayList<>();
-        mresourceID = resourceID;
-    }
-
-    public MovieVerticalListAdapter(Activity context, int resourceID,
+    public MovieVerticalListAdapter(Activity context,
                                     List<SimpleMovieBean> list) {
         mActivity = context;
-        mresourceID = resourceID;
         mList = list;
     }
 
@@ -54,16 +46,14 @@ public class MovieVerticalListAdapter extends RecyclerView.Adapter<MovieVertical
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(mActivity)
-                .inflate(mresourceID, parent, false)
+        return new ViewHolder(
+                LayoutInflater.from(mActivity).inflate(R.layout.item_just_now, parent, false)
         );
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         SimpleMovieBean movie = mList.get(position);
-
-//        runEnterAnimation(holder.itemView, position);
 
         Glide.with(mActivity)
                 .load(movie.getImageUrl())
@@ -89,21 +79,6 @@ public class MovieVerticalListAdapter extends RecyclerView.Adapter<MovieVertical
             holder.mRatingBar.setVisibility(View.GONE);
         }
     }
-
-    private int mLastAnimatedPosition = -1;
-
-//    private void runEnterAnimation(View view, int position) {
-//        if (position > mLastAnimatedPosition) {
-//            mLastAnimatedPosition = position;
-//            view.setAlpha(0);
-//            view.animate()
-//                    .alpha(1)
-//                    .setStartDelay(200 * position)
-//                    .setInterpolator(new DecelerateInterpolator(3.f))
-//                    .setDuration(500)
-//                    .start();
-//        }
-//    }
 
     @Override
     public int getItemCount() {
