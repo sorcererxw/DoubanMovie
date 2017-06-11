@@ -58,24 +58,19 @@ public class MainActivity extends AppCompatActivity {
         });
         assert getSupportActionBar() != null;
 
-        getSupportActionBar().setTitle("");
+        getSupportActionBar().setHomeAsUpIndicator(
+                new IconicsDrawable(this, GoogleMaterial.Icon.gmd_search)
+                        .sizeDp(16)
+                        .color(ContextCompat.getColor(this, R.color.md_grey_700)));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         mInTheaterView.init(getString(R.string.in_theaters), getString(R.string.action_more),
                 () -> {
                     Intent intent = new Intent();
                     intent.setClass(MainActivity.this, JustNowActivity.class);
                     MainActivity.this.startActivity(intent);
-                },
-
-        getSupportActionBar().setHomeAsUpIndicator(new IconicsDrawable(this,
-                GoogleMaterial.Icon.gmd_search)
-                .sizeDp(16)
-                .color(ContextCompat.getColor(this, R.color.md_grey_700)));
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-        mInTheaterView.init(getString(R.string.in_theaters), getString(R.string.action_more), null,
-
-                DoubanClient.getInstance().inTheaters());
+                }, DoubanClient.getInstance().inTheaters());
         mComingSoonView.init(getString(R.string.coming_soon), getString(R.string.action_more), null,
                 DoubanClient.getInstance().comingSoon(0, 10));
         mTop250View.init(getString(R.string.top250), getString(R.string.action_more), null,
