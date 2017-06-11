@@ -7,12 +7,16 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.sorcererxw.doubanmovie.R;
 import com.sorcererxw.doubanmovie.api.douban.DoubanClient;
+import com.sorcererxw.doubanmovie.ui.Navigator;
+import com.sorcererxw.doubanmovie.ui.anim.SearchTransitioner;
+import com.sorcererxw.doubanmovie.ui.anim.ViewFader;
 import com.sorcererxw.doubanmovie.ui.views.ExposedSearchToolbar;
 import com.sorcererxw.doubanmovie.ui.views.MovieHorizontalListView;
 
@@ -30,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
                })
     MovieHorizontalListView[] mViews;
 
+    @BindView(R.id.linearLayout_main_content_container)
+    ViewGroup mContentContainer;
+
     @BindView(R.id.movieHorizontalListView_main_intheaters)
     MovieHorizontalListView mInTheaterView;
 
@@ -45,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.exposedSearchToolbar)
     ExposedSearchToolbar mSearchToolbar;
 
+    private SearchTransitioner mSearchTransitioner;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,11 +62,8 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(mSearchToolbar);
         mSearchToolbar.setTitle(R.string.app_name);
-        mSearchToolbar.setOnClickListener(v -> {
 
-        });
         assert getSupportActionBar() != null;
-
         getSupportActionBar().setHomeAsUpIndicator(
                 new IconicsDrawable(this, GoogleMaterial.Icon.gmd_search)
                         .sizeDp(16)
@@ -86,9 +92,20 @@ public class MainActivity extends AppCompatActivity {
                         .setDuration(400).start();
             }
         }, 500);
-
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Navigator navigator = new Navigator(this);
+        mSearchTransitioner =
+                new SearchTransitioner(this, navigator, mContentContainer, mSearchToolbar,
+                        new ViewFader());
+        mSearchToolbar.setOnClickListener(v -> {
+            mSearchToolbar.post(() -> mSearchTransitioner.transitionToSearch());
+        });
+        getWindow().getDecorView().postDelayed(() -> mSearchTransitioner.onActivityResumed(), 100);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -96,4 +113,8 @@ public class MainActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }

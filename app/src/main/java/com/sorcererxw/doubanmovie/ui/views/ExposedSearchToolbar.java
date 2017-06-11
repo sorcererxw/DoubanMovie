@@ -3,6 +3,7 @@ package com.sorcererxw.doubanmovie.ui.views;
 import android.content.Context;
 import android.support.annotation.StringRes;
 import android.support.v7.widget.Toolbar;
+import android.text.Spanned;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -48,7 +49,7 @@ public class ExposedSearchToolbar extends Toolbar {
         mTitleTextView = new TextView(context);
         mTitleTextView.setTextColor(
                 ResourceUtil.getAttrColor(context, android.R.attr.textColorSecondary));
-        mTitleTextView.setAlpha(0.8f);
+//        mTitleTextView.setAlpha(0.8f);
         mTitleTextView.setTextSize(20);
         mTitleTextView.setLayoutParams(new ViewGroup.LayoutParams(WRAP_CONTENT, WRAP_CONTENT));
 //        mTitleTextView
@@ -63,6 +64,10 @@ public class ExposedSearchToolbar extends Toolbar {
 
     @Override
     public void setTitle(CharSequence title) {
+        mTitleTextView.setText(title);
+    }
+
+    public void setTitle(Spanned title) {
         mTitleTextView.setText(title);
     }
 }

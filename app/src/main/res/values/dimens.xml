@@ -9,6 +9,9 @@
     <dimen name="list_detail_image_height">112dp</dimen>
     <dimen name="list_detail_image_width">80dp</dimen>
 
+    <dimen name="search_image_height">76dp</dimen>
+    <dimen name="search_image_width">52dp</dimen>
+
     <dimen name="list_movie_container_height">192dp</dimen>
 
     <dimen name="one_dp">1dp</dimen>

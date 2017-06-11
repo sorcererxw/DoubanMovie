@@ -1,7 +1,6 @@
 package com.sorcererxw.doubanmovie.ui.anim;
 
 import android.app.Activity;
-import android.support.design.widget.TabLayout;
 import android.transition.Transition;
 import android.transition.TransitionManager;
 import android.view.ViewGroup;
@@ -22,7 +21,6 @@ public class SearchTransitioner {
     private Activity mActivity;
     private ExposedSearchToolbar mSearchToolbar;
     private Navigator mNavigator;
-    private TabLayout mTabLayout;
     private ViewGroup mActivityContent;
     private ViewFader mViewFader;
 
@@ -31,13 +29,11 @@ public class SearchTransitioner {
 
     public SearchTransitioner(Activity activity,
                               Navigator navigator,
-                              TabLayout tabLayout,
                               ViewGroup activityContent,
                               ExposedSearchToolbar searchToolbar,
                               ViewFader viewFader) {
         mActivity = activity;
         mNavigator = navigator;
-        mTabLayout = tabLayout;
         mActivityContent = activityContent;
         mSearchToolbar = searchToolbar;
         mViewFader = viewFader;
@@ -52,7 +48,6 @@ public class SearchTransitioner {
         TransitionManager.beginDelayedTransition(mSearchToolbar, transition);
         expandToolbar();
         mViewFader.hideContentOf(mSearchToolbar);
-        mTabLayout.animate().translationYBy(-mTabLayout.getHeight()).setDuration(250).start();
         mActivityContent.animate().alpha(0).setDuration(250).start();
     }
 
@@ -88,9 +83,7 @@ public class SearchTransitioner {
         layoutParams.setMargins(mToolbarMargin, mToolbarMargin, mToolbarMargin, mToolbarMargin);
         mViewFader.showContent(mSearchToolbar);
         mSearchToolbar.setLayoutParams(layoutParams);
-        mTabLayout.animate().translationY(0).setDuration(250).start();
         mActivityContent.animate().alpha(1).setDuration(250).start();
-
     }
 
 }

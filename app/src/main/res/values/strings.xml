@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">豆瓣电影</string>
+    <string name="app_name_brand">豆瓣</string>
+    <string name="app_name_info">电影</string>
 
     <string name="in_theaters">院线热映</string>
     <string name="coming_soon">即将上映</string>
@@ -10,6 +12,7 @@
 
     <string name="no_rating">暂无评分</string>
 
+    <string name="transition_name_movie_title" translatable="false">celebrity_title</string>
     <string name="transition_name_movie_image" translatable="false">movie_img</string>
     <string name="transition_name_celebrity_image" translatable="false">celebrity_img</string>
 
@@ -30,5 +33,5 @@
 
     <string name="action_search">搜索</string>
     <string name="action_setting">设置</string>
-
+    <string name="action_search_movie">搜索电影</string>
 </resources>
