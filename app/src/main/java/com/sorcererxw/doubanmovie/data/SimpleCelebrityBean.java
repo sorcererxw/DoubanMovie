@@ -71,4 +71,5 @@ public class SimpleCelebrityBean implements Parcelable {
     public String getImageUrl() {
         return mImageUrl;
     }
+
 }

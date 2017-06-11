@@ -20,6 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
+            app:titleEnabled="false"
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleMarginEnd="64dp"
             app:expandedTitleMarginStart="48dp"
@@ -43,6 +44,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
+        android:id="@+id/NestedScrollView_movie"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:behavior_overlapTop="56dp"
@@ -192,34 +194,5 @@
             </LinearLayout>
         </RelativeLayout>
     </android.support.v4.widget.NestedScrollView>
-    <!--<android.support.v7.widget.Toolbar-->
-    <!--android:id="@+id/toolbar_movie_detail"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="?attr/actionBarSize"-->
-    <!--android:background="@color/primary"-->
-    <!--app:layout_anchor="@id/frameLayout_movie_detail_title"-->
-    <!--app:theme="@style/ThemeOverlay.AppCompat.Dark"-->
-    <!--app:title="">-->
-
-    <!--<LinearLayout-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:orientation="horizontal">-->
-
-    <!--&lt;!&ndash;<Space&ndash;&gt;-->
-    <!--&lt;!&ndash;android:layout_width="@dimen/image_final_width"&ndash;&gt;-->
-    <!--&lt;!&ndash;android:layout_height="@dimen/image_final_width"/>&ndash;&gt;-->
-
-    <!--<TextView-->
-    <!--android:id="@+id/main.textview.title"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:layout_marginLeft="8dp"-->
-    <!--android:gravity="center_vertical"-->
-    <!--android:text="title"-->
-    <!--android:textColor="@android:color/white"-->
-    <!--android:textSize="20sp"/>-->
-    <!--</LinearLayout>-->
-    <!--</android.support.v7.widget.Toolbar>-->
 
 </android.support.design.widget.CoordinatorLayout>

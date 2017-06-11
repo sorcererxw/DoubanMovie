@@ -6,6 +6,7 @@ import com.sorcererxw.doubanmovie.api.douban.data.SearchData;
 import com.sorcererxw.doubanmovie.api.douban.data.SimpleSubjectData;
 import com.sorcererxw.doubanmovie.api.douban.data.Top250Data;
 import com.sorcererxw.doubanmovie.api.douban.data.UsBoxData;
+import com.sorcererxw.doubanmovie.data.CelebrityBean;
 import com.sorcererxw.doubanmovie.data.MovieBean;
 import com.sorcererxw.doubanmovie.data.SimpleMovieBean;
 
@@ -135,5 +136,9 @@ public class DoubanClient {
 
     public Observable<MovieBean> movie(String id) {
         return mDoubanService.subject(id).map(MovieBean::from);
+    }
+
+    public Observable<CelebrityBean> celebrity(String id) {
+        return mDoubanService.celebrity(id).map(CelebrityBean::from);
     }
 }
