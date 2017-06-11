@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Douban Movie</string>
+    <string name="app_name">豆瓣电影</string>
 
     <string name="in_theaters">院线热映</string>
     <string name="coming_soon">即将上映</string>
@@ -22,8 +22,13 @@
 
     <string name="movie_detail_summary">简介</string>
     <string name="movie_detail_celebrity">影人</string>
+    <string name="celebrity_summary">个人简介</string>
     <string name="celebrity_work">相关作品</string>
 
     <string name="celebrity_gender">性别</string>
     <string name="celebrity_born_place">出生地</string>
+
+    <string name="action_search">搜索</string>
+    <string name="action_setting">设置</string>
+
 </resources>

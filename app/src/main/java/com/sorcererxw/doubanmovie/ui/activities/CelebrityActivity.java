@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -28,13 +29,15 @@ import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.materialize.util.UIUtils;
 import com.sorcererxw.doubanmovie.R;
 import com.sorcererxw.doubanmovie.api.douban.DoubanClient;
+import com.sorcererxw.doubanmovie.api.douban.DoubanSpider;
 import com.sorcererxw.doubanmovie.data.CelebrityBean;
 import com.sorcererxw.doubanmovie.data.SimpleCelebrityBean;
-import com.sorcererxw.doubanmovie.ui.adapters.MovieHorizontalListAdapter;
+import com.sorcererxw.doubanmovie.ui.adapters.DetailMovieHorizontalListAdapter;
 import com.sorcererxw.doubanmovie.utils.ColorUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
@@ -62,6 +65,15 @@ public class CelebrityActivity extends AppCompatActivity {
 
     @BindView(R.id.cardView_celebrity_work)
     CardView mWorkCard;
+
+    @BindView(R.id.linearLayout_celebrity_content_container)
+    ViewGroup mContentContainer;
+//
+//    @BindView(R.id.cardView_celebrity_summary)
+//    CardView mSummaryCard;
+//
+//    @BindView(R.id.textView_celebrity_summary)
+//    TextView mSummaryText;
 
     @BindView(R.id.textView_celebrity_info)
     TextView mInfo;
@@ -98,6 +110,19 @@ public class CelebrityActivity extends AppCompatActivity {
                 tintToolbar(resource);
             }
         });
+        Observable.just(celebrity.getId())
+                .observeOn(Schedulers.io())
+                .map(DoubanSpider::getCelebritySummary)
+                .filter(s -> !s.isEmpty())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(s -> {
+                    View summaryCard =
+                            View.inflate(this, R.layout.layout_celebrity_summary_card, null);
+                    ((TextView) summaryCard.findViewById(R.id.textView_celebrity_summary))
+                            .setText(Html.fromHtml(s));
+                    mContentContainer.addView(summaryCard, 1);
+                }, Timber::d);
+
         DoubanClient.getInstance().celebrity(celebrity.getId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -113,10 +138,11 @@ public class CelebrityActivity extends AppCompatActivity {
                     if (!mInfo.getText().toString().isEmpty()) {
                         mInfo.animate().alpha(1).start();
                     }
-
-                    mWorkCard.setTranslationY(mWorkCard.getHeight());
-                    mWorkCard.animate().alpha(1).translationY(0).setDuration(500)
-                            .setInterpolator(new AccelerateDecelerateInterpolator()).start();
+                    if (!mCelebrity.getMovieList().isEmpty()) {
+                        mWorkCard.setTranslationY(mWorkCard.getHeight());
+                        mWorkCard.animate().alpha(1).translationY(0).setDuration(500)
+                                .setInterpolator(new AccelerateDecelerateInterpolator()).start();
+                    }
                 }, Timber::e);
     }
 
@@ -136,7 +162,8 @@ public class CelebrityActivity extends AppCompatActivity {
             mInfo.setText(Html.fromHtml(info));
         }
 
-        mRecyclerView.setAdapter(new MovieHorizontalListAdapter(this, mCelebrity.getMovieList()));
+        mRecyclerView
+                .setAdapter(new DetailMovieHorizontalListAdapter(this, mCelebrity.getMovieList()));
         mRecyclerView.setLayoutManager(
                 new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         mRecyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {

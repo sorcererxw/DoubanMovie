@@ -83,4 +83,6 @@ dependencies {
     apt 'com.jakewharton:butterknife-compiler:8.6.0'
     compile "com.mikepenz:iconics-core:2.8.6@aar"
     compile 'com.mikepenz:google-material-typeface:3.0.1.0.original@aar'
+    // jsoup
+    compile 'org.jsoup:jsoup:1.10.2'
 }

@@ -2,6 +2,11 @@ package com.sorcererxw.doubanmovie;
 
 import android.app.Application;
 
+import com.sorcererxw.doubanmovie.utils.NetUtil;
+
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+
 import rx_activity_result2.RxActivityResult;
 import timber.log.Timber;
 
@@ -21,5 +26,11 @@ public class App extends Application {
             Timber.plant(new Timber.DebugTree());
         }
         RxActivityResult.register(this);
+
+        try {
+            NetUtil.enableSSLSocket();
+        } catch (KeyManagementException | NoSuchAlgorithmException e) {
+            Timber.e(e);
+        }
     }
 }

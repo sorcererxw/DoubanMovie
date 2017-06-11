@@ -84,6 +84,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     @BindView(R.id.textView_movie_detail_title)
     TextView mTitleText;
+
     @BindView(R.id.textView_movie_detail_original_title)
     TextView mOriginalTitleText;
 
@@ -133,15 +134,19 @@ public class MovieDetailActivity extends AppCompatActivity {
                     mInfo.animate().alpha(1).setDuration(500)
                             .setInterpolator(new AccelerateDecelerateInterpolator()).start();
 
-                    mSummaryCard.setTranslationY(mSummaryCard.getHeight());
-                    mSummaryCard.animate().alpha(1).translationY(0).setDuration(500)
-                            .setInterpolator(new AccelerateDecelerateInterpolator()).start();
-
-                    mCelebrityCard
-                            .setTranslationY(mCelebrityCard.getHeight());
-                    mCelebrityCard.animate().alpha(1).translationY(0).setDuration(500)
-                            .setStartDelay(300)
-                            .setInterpolator(new AccelerateDecelerateInterpolator()).start();
+                    if (!mMovie.getSummary().isEmpty()) {
+                        mSummaryCard.setTranslationY(mSummaryCard.getHeight());
+                        mSummaryCard.animate().alpha(1).translationY(0).setDuration(500)
+                                .setInterpolator(new AccelerateDecelerateInterpolator()).start();
+                    } else {
+                        mContentContainer.removeView(mSummaryCard);
+                    }
+                    if (!(mMovie.getDirectors().isEmpty() && mMovie.getCasts().isEmpty())) {
+                        mCelebrityCard.setTranslationY(mCelebrityCard.getHeight());
+                        mCelebrityCard.animate().alpha(1).translationY(0).setDuration(500)
+                                .setStartDelay(300)
+                                .setInterpolator(new AccelerateDecelerateInterpolator()).start();
+                    }
                 }, Timber::e);
 
     }
