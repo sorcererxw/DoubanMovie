@@ -46,7 +46,7 @@ public class JustNowActivity extends AppCompatActivity {
         source.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(movieBeen -> {
-                    Timber.d(movieBeen.size() + "");
+//                    Timber.d(movieBeen.size() + "");
                     mAdapter = new MovieVerticalListAdapter(this, movieBeen);
                     list.setLayoutManager(
                             new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
