@@ -46,19 +46,14 @@ public class JustNowActivity extends AppCompatActivity {
         source.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(movieBeen -> {
-                    Timber.d(movieBeen.size() + "");
+//                    Timber.d(movieBeen.size() + "");
                     mAdapter = new MovieVerticalListAdapter(this, movieBeen);
                     list.setLayoutManager(
                             new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
                     list.setAdapter(mAdapter);
                 }, Timber::e);
-        getSupportActionBar().setTitle("正在热映");
+        getSupportActionBar().setTitle(getString(R.string.in_theaters));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-    }
-
-    private void initList(List<SimpleMovieBean> movieBeenList) {
-        mAdapter.setData(movieBeenList);
-        mAdapter.notifyDataSetChanged();
     }
 }
