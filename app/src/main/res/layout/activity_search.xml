@@ -9,4 +9,22 @@
     android:orientation="vertical"
     tools:context="com.sorcererxw.doubanmovie.ui.activities.SearchActivity">
 
+    <com.sorcererxw.doubanmovie.ui.views.SearchBar
+        android:layout_height="@dimen/toolbar_semi_expanded_height"
+        android:id="@+id/searchBar"
+        android:elevation="4dp"
+        android:gravity="top"
+        android:background="?attr/colorCard"
+        android:minHeight="@dimen/toolbar_semi_expanded_height"
+        android:layout_width="match_parent"/>
+    <RelativeLayout
+        android:id="@+id/viewGroup_search_content_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </RelativeLayout>
+
 </LinearLayout>
